@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5G Guided Implementation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <!-- Ton header existant -->
+    </header>
+
+    <main>
+        <section id="implementation-guide">
+            <h2>Phase 1: Choisissez votre UE (User Equipment)</h2>
+
+            <!-- Choix de l'UE -->
+            <label for="ue-select">Sélectionner un UE :</label>
+            <select id="ue-select">
+                <option value="smartphone">Smartphone</option>
+                <option value="cellular-modem">Modem Cellulaire</option>
+                <option value="sdr">SDR</option>
+            </select>
+            <button id="add-ue">Ajouter l'UE</button>
+
+            <h2>Phase 2: Choisissez votre SDR (gNB - RAN Hardware)</h2>
+
+            <!-- Choix du SDR -->
+            <label for="ran-select">Sélectionner un SDR :</label>
+            <select id="ran-select">
+                <option value="lime_sdr">LimeSDR</option>
+                <option value="b210">B210</option>
+                <option value="b200">B200</option>
+            </select>
+            <button id="add-ran">Ajouter le SDR</button>
+
+            <!-- Conteneur de l'image 5G -->
+            <div id="network-architecture">
+                <img src="architecture_5G.png" alt="5G Architecture" id="network-image">
+            </div>
+        </section>
+
+        <script src="script.js"></script>
+    </main>
+</body>
+</html>

@@ -55,3 +55,42 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+
+#network-architecture {
+    position: relative;
+    text-align: center;
+}
+
+#network-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.component {
+    position: absolute;
+    background-color: #007BFF;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: grab;
+}
+
+#ue-select, #ran-select {
+    margin: 10px;
+}
+
+#add-ue, #add-ran {
+    margin: 10px;
+    padding: 5px 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-ue:hover, #add-ran:hover {
+    background-color: #0056b3;
+}
+
