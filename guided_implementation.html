@@ -5,77 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Architecture du Réseau 5G</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Styles supplémentaires pour la mise en page */
-        #architecture {
-            display: flex; /* Utilisation de Flexbox pour la mise en page */
-            margin-top: 20px; /* Ajustement pour remonter le titre */
-        }
-
-        #network-architecture {
-            flex: 2; /* Prend 2/3 de la largeur */
-            position: relative;
-        }
-
-        #component-selection {
-            flex: 1; /* Prend 1/3 de la largeur */
-            padding-left: 20px; /* Espacement à gauche */
-            display: flex;
-            flex-direction: column; /* Aligne les menus déroulants verticalement */
-        }
-
-        #component-selection div {
-            margin-bottom: 10px; /* Espacement entre les listes déroulantes */
-        }
-
-        /* Style général */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 80px 0 0 0; /* 80px pour compenser la hauteur du header */
-            background-color: #e9f3fc;
-        }
-
-        /* Section architecture 5G */
-        #architecture {
-            margin-top: 0; /* Supprime le margin-top du header */
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center; /* Centrer le titre */
-            margin-top: 20px; /* Ajustement de l'espacement au-dessus du titre */
-        }
-
-        .component-text {
-            position: absolute;
-            color: red;
-            font-size: 16px;
-            font-weight: bold;
-            background-color: white;
-            padding: 2px;
-            border-radius: 4px;
-        }
-
-        .component-image {
-            position: absolute;
-            border: 2px solid black;
-            border-radius: 5px;
-        }
-        .ue-image {
-            position: absolute;
-            bottom: 133px;
-            left: 0px;
-            width: 100px;
-            display:none; 
-        }
-        #phone-image {
-            width: 100px;
-            height: auto;
-        }
-    </style>
+    
 </head>
 <body>
+        <!-- Conteneur pour le header -->
+        <div id="header-container"></div>
+    
+        <!-- Inclusion du script -->
+        <script src="script.js"></script>
     <div id="architecture">
         <div id="component-selection">
             <div>
@@ -114,6 +51,18 @@
                     <option value="oia">OpenAirInterface (OIA)</option>
                 </select>
             </div>
+            <div>
+                <label>Choose OS :</label>
+                <select>
+                    <option value="">--Choose OS--</option>
+                    <option value="debian">Debian</option>
+                    <option value="ubuntu">Ubuntu 16</option>
+                    <option value="ubuntu">Ubuntu 18</option>
+                    <option value="ubuntu22">Ubuntu 22</option>
+                    <option value="ubuntu">Ubuntu 24</option>
+                    <option value="vm">Virtual machine</option>
+                </select>
+            </div>
         </div>
         <div id="network-architecture">
             <h1>Architecture du Réseau 5G</h1>
@@ -126,6 +75,9 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
+    <div id="selection-message" style="display:none; margin-top: 10px; color: grey;">
+        Vous avez sélectionné Open5GS + Ubuntu 22
+    </div>
+    
 </body>
 </html>

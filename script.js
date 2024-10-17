@@ -1,3 +1,4 @@
+
 window.addEventListener('DOMContentLoaded', (event) => {
     fetch('header.html')
         .then(response => response.text())
@@ -8,10 +9,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
             console.error('Erreur lors du chargement du header:', error);
         });
 });
+
 document.addEventListener("DOMContentLoaded", function () {     
     const ueSelect = document.querySelector('select'); // Sélectionner le premier dropdown (UE)     
     const ueImageContainer = document.querySelector('.ue-image'); // Le conteneur de l'image du smartphone     
-    //const ueImage = document.getElementById("phone-image"); // L'image elle-même 
+    const ueImage = document.getElementById("phone-image"); // L'image elle-même 
     
     ueSelect.addEventListener("change", function () {   
         console.log("Valeur sélectionnée :", this.value);       
@@ -23,3 +25,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }     
     }); 
 });
+
+
