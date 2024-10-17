@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Private 5G Standalone Network</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: Consolas, 'Courier New', Courier, monospace;
+        }
+        .code-block {
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-left: 4px solid #333;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: Consolas, 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Private 5G Standalone Network</h1>
+
+    <h2>By: Miguel José FILIPE</h2>
+    <p>Equipe SARA<br>Université Paul Sabatier III<br>France</p>
+
+    <h2>Core Network</h2>
+    <p>This section explains how the core network has been set up for this test bench, allowing the process to be reproducible and adaptable for future updates.</p>
+
+    <h3>System Tweaking</h3>
+    <p>For optimal performance, it’s necessary to install low-latency kernels in the Linux OS. This minimizes communication latency between the SDR and processors.</p>
+
+    <div class="code-block">
+        <code>sudo apt-get install linux-image-lowlatency</code>
+    </div>
+
+    <p>After rebooting and selecting the low-latency kernel, set the processor to full performance mode with the following commands:</p>
+
+    <div class="code-block">
+        <code>watch grep "cpu MHz" /proc/cpuinfo</code><br>
+        <code>sudo apt-get install i7z</code><br>
+        <code>sudo i7z</code><br>
+        <code>sudo apt-get install cpufrequtils</code><br>
+        <code>sudo nano /etc/default/cpufrequtils</code> <br>
+        <code>sudo update-rc.d ondemand disable</code><br>
+        <code>echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor</code>
+    </div>
+
+    <h3>Installing the Core Network</h3>
+    <p>The Core Network used is OpenAirInterface’s (OAI) product, which is fully functional and works on Ubuntu 20.04 LTS.</p>
+    
+    <p>Clone and build the OAI Core Network repository:</p>
+    
+    <div class="code-block">
+        <code>git clone --branch v2.0.1 https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed.git</code><br>
+        <code>cd oai-cn5g-fed</code><br>
+        <code>git checkout -f v2.0.1</code><br>
+        <code>./scripts/syncComponents.sh</code><br>
+        <code>git submodule deinit --all --force</code><br>
+        <code>git submodule init</code><br>
+        <code>git submodule update</code>
+    </div>
+
+    <h3>Configuring the Core Network</h3>
+    <p>Adjust configuration parameters to match those of the gNodeB. The main parameters include MCC, MNC, and TAC, which need to align between the Core Network and gNodeB.</p>
+
+    <div class="code-block">
+        <code>
+        oai-amf:<br>
+        container_name: "oai-amf"<br>
+        image: oaisoftwarealliance/oai-amf:v2.0.1<br>
+        environment:<br>
+        - TZ=Europe/Paris<br>
+        - MCC=208<br>
+        - MNC=36<br>
+        - REGION_ID=31<br>
+        - SERVED_GUAMI_MCC_0=208<br>
+        - PLMN_SUPPORT_MNC=36<br>
+        - PLMN_SUPPORT_TAC=1
+        </code>
+    </div>
+
+    <h3>Launching the Core Network</h3>
+    <p>First, update Docker and set Google nameservers:</p>
+
+    <div class="code-block">
+        <code>cd /usr/local/bin && sudo rm -rf docker-compose</code><br>
+        <code>sudo curl -SL https://github.com/docker/compose/releases/download/v2.1.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose</code><br>
+        <code>sudo chmod +x docker-compose</code><br>
+        <code>sudo nano /etc/resolv.conf</code> (add nameserver 8.8.8.8)<br>
+        <code>sudo systemctl daemon-reload</code><br>
+        <code>sudo systemctl restart docker</code>
+    </div>
+
+    <p>Launch the Core Network:</p>
+    
+    <div class="code-block">
+        <code>sudo python3 core-network.py --type start-basic</code>
+    </div>
+
+    <h2>gNodeB</h2>
+
+    <h3>Installing the gNodeB</h3>
+    <p>Install the OpenAirInterface gNodeB, using Ubuntu 20.04 for best compatibility. Clone the repository:</p>
+
+    <div class="code-block">
+        <code>git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git ~/openairinterface5g</code><br>
+        <code>cd ~/openairinterface5g</code><br>
+        <code>git checkout develop</code>
+    </div>
+
+    <p>Build the required dependencies:</p>
+
+    <div class="code-block">
+        <code>cd cmake_targets</code><br>
+        <code>sudo ./build_oai -I</code>
+    </div>
+
+    <h3>Configuring the gNodeB</h3>
+    <p>Configure the gNodeB to match the core network parameters, particularly MCC, MNC, TAC, and IP settings. Update the configuration file:</p>
+
+    <div class="code-block">
+        <code>
+        gNB_ID = 0xe00;<br>
+        tracking_area_code = 1;<br>
+        plmn_list = ({ mcc = 001; mnc = 01; mnc_length = 2; });<br>
+        amf_ip_address = { ipv4 = "192.168.70.132"; };
+        </code>
+    </div>
+
+    <h3>Launching the gNodeB</h3>
+    <p>Launch the gNodeB:</p>
+
+    <div class="code-block">
+        <code>sudo ./nr-softmodem -O gnb.conf --gNBs.[0].min_rxtxtime 6 --sa -E</code>
+    </div>
+
+    <h2>UE</h2>
+    <h3>OpenAirInterface UE</h3>
+    <p>To build the UE, use the same process as the gNodeB:</p>
+
+    <div class="code-block">
+        <code>cd ~/openairinterface5g</code><br>
+        <code>source oaienv</code><br>
+        <code>cd cmake_targets</code><br>
+        <code>./build_oai -w USRP --ninja --UE -C</code>
+    </div>
+
+    <p>Add the UE's identity to the Core Network:</p>
+
+    <div class="code-block">
+        <code>imsi = "208970100001127";</code><br>
+        <code>key = "fec86ba6eb707ed08905757b1bb44b8f";</code>
+    </div>
+
+    <h3>Launching the UE</h3>
+    <p>Launch the UE with the following command:</p>
+
+    <div class="code-block">
+        <code>sudo ./nr-uesoftmodem -r 51 --numerology 1 --band 78 -C 3309480000 --sa --norkmod</code>
+    </div>
+
+</body>
+</html>
