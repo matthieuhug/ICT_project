@@ -146,3 +146,19 @@ code {
     width: 100px;
     height: auto;
 }
+/* Style for video container */
+.video-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Style for the embedded video */
+.intro-video {
+    width: 100%;
+    max-width: 600px; /* Limits video size on larger screens */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Adds shadow for depth */
+    aspect-ratio: 16 / 9; /* Ensures the video maintains a 16:9 ratio */
+}
+

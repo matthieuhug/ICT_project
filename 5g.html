@@ -1,19 +1,119 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding 5G</title>
     <link rel="stylesheet" href="styles.css">
-    <title>SDR - Page</title>
 </head>
 <body>
-    <div id="header-container"></div>
-    
-    <section id="architecture">
-        <h1>Page SDR</h1>
-        <p>Ici, nous parlons des systèmes SDR.</p>
-    </section>
 
-    <script src="script.js"></script>
+<header>
+    <nav id="header-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li> 
+            <li><a href="5g.html">5G</a></li>
+            <li><a href="sdr.html">SDR</a></li>
+            <li><a href="project_examples.html">Project Examples</a></li>
+            <li><a href="guided_implementation.html">Guided Implementation</a></li>
+            <li><a href="qa_troubleshooting.html">Q&A / Troubleshooting</a></li>
+            <li><a href="forum.html">Forum</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <main>
+        <section id="introduction">
+            <h1>5G Explained</h1>
+            <p>5G is the fifth generation of mobile networks, created to support faster speeds, greater connectivity, and new technological possibilities like the Internet of Things (IoT) and smart cities. A core organization in defining and managing 5G standards is the <strong>3rd Generation Partnership Project (3GPP)</strong>. The 3GPP is an umbrella organization that brings together global telecommunications standards bodies. Their mission is to establish protocols for mobile systems and ensure worldwide compatibility.</p>
+            
+            <!-- Video Embed Section -->
+            <div class="video-container">
+                <iframe class="intro-video" src="https://www.youtube.com/embed/mo1lNRKnayA" 
+                    title="YouTube video player" frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <p>Since the inception of 5G, 3GPP has released several key versions, or "releases," which define the evolving capabilities and standards of 5G. Releases 15, 16, and 17 have each introduced new features, such as enhanced mobile broadband (eMBB), ultra-reliable low-latency communication (URLLC), and massive machine-type communications (mMTC). These features are designed to improve data rates, lower latency, and increase the number of supported devices.</p>
+        </section>
+
+        <section id="goals-and-standards">
+            <h2>5G Goals and Standards</h2>
+            <p>5G aims to meet several primary goals that distinguish it from previous generations:</p>
+            <ul>
+                <li><strong>eMBB (Enhanced Mobile Broadband):</strong> Provides high data speeds and capacity for applications like HD streaming and VR.</li>
+                <li><strong>URLLC (Ultra-Reliable Low-Latency Communication):</strong> Supports real-time applications with extremely low latency, such as autonomous driving and remote medical procedures.</li>
+                <li><strong>mMTC (Massive Machine-Type Communications):</strong> Facilitates connectivity for a massive number of devices, enabling IoT solutions in urban infrastructure, agriculture, and smart homes.</li>
+            </ul>
+        </section>
+
+        <section id="network-architecture">
+            <h2>Understanding 5G Network Components</h2>
+            <p>The 5G network architecture consists of several key components that work together to deliver high-speed, low-latency mobile connectivity. Here’s a brief overview of the core network, gNB, and RAN:</p>
+            
+            <h3>Core Network</h3>
+            <p>The core network (also known as the 5G core or 5GC) is the central part of a 5G network that connects various components and handles critical functions such as routing, data management, and mobility management. It is responsible for managing user data, authentication, and overall network control.</p>
+        
+            <h3>gNB (Next-Generation Node B)</h3>
+            <p>gNB is the base station in the 5G network that connects user devices (like smartphones) to the network. It manages the radio interface with devices and is responsible for transmitting and receiving data over the air. It plays a central role in the RAN and ensures seamless communication between the device and the core network.</p>
+        
+            <h3>RAN (Radio Access Network)</h3>
+            <p>The Radio Access Network (RAN) consists of the infrastructure that connects user devices to the core network through radio signals. The RAN includes base stations (like gNB in 5G), antennas, and other equipment that provide wireless communication over the air. The RAN handles the communication between the user device and the gNB, ensuring reliable signal transmission and reception.</p>
+        </section>
+        
+
+        <section>
+            <div style="text-align: center;">
+                <img src="https://openairinterface.org/wp-content/uploads/2022/08/CN2.png" style="width: 75%; max-width: 800px; height: auto;">
+            </div>
+        </section>
+
+        <section id="technical-details">
+            <h2>Technical Details of 5G</h2>
+            <p>5G employs several key technologies and advancements that make it significantly more capable than 4G:</p>
+            <ul>
+                <li><strong>Bandwidth:</strong> 5G can achieve speeds of up to 10 Gbps, making it up to 100 times faster than 4G. This bandwidth allows for seamless data transfer in applications like streaming, gaming, and real-time monitoring.</li>
+                <li><strong>Frequency Bands:</strong> 5G operates on multiple bands, including low, mid, and high (mmWave) frequencies. High-frequency bands support the highest data speeds but have a limited range.</li>
+                <li><strong>Antenna Reach:</strong> 5G antennas, especially those using mmWave technology, have a shorter range and require more infrastructure, like small cells, to provide coverage in urban areas.</li>
+                <li><strong>Downsides Compared to 4G:</strong> While 5G offers faster speeds and more connectivity, it is more sensitive to obstacles and has a limited reach. It also requires more power and a larger number of base stations, especially for mmWave bands, compared to 4G.</li>
+            </ul>
+        </section>
+        
+        <section>
+            <div style="text-align: center;">
+                <img src="https://www.3gpp.org/images/2022/08/17/5g-fig1.png" style="width: 75%; max-width: 800px; height: auto;">
+            </div>
+        </section>
+
+        <section id="open-source-projects">
+            <h2>Open Source Projects for 5G</h2>
+            <p>Several open-source projects allow developers and researchers to experiment with 5G technology. These projects provide resources for building, testing, and deploying 5G networks. Notable projects include:</p>
+            <ul>
+                <li><strong><a href="https://openairinterface.org/" target="_blank">OpenAirInterface</a>:</strong> A collaborative project providing an open-source software stack for mobile networks, allowing users to build a 5G core and radio access network (RAN) with readily available software and resources.</li>
+                <li><strong><a href="https://open5gs.org/" target="_blank">Open5GS</a>:</strong> A free and open-source 5G core network implementation that supports core functionalities for testing and deploying 5G systems.</li>
+                <li><strong><a href="https://www.srslte.com/" target="_blank">SRSRan</a>:</strong> A project that provides a software radio implementation for 4G and 5G networks, widely used in academic and industrial research for radio access networks.</li>
+            </ul>
+            <p>To start a 5G open-source project, basic equipment includes:</p>
+            <ul>
+                <li><strong>Software-defined radio (SDR) hardware:</strong> Hardware like Ettus USRP, BladeRF, or LimeSDR for transmitting and receiving wireless signals.</li>
+                <li><strong>Powerful computing resources:</strong> Many open-source projects require high-performance processors or servers to handle data and manage core network functions.</li>
+                <li><strong>5G-capable antennas:</strong> Specialized antennas to support the different 5G frequency bands, particularly for mmWave transmissions.</li>
+            </ul>
+        </section>
+        
+        
+        <section>
+            <div style="text-align: center;">
+                <img src="https://openairinterface.org/wp-content/uploads/2021/11/Visuel-haut-de-page-5G-RAN-1536x927.png" style="width: 75%; max-width: 800px; height: auto;">
+            </div>
+        </section>
+    </main>
+
+<footer>
+    <p>&copy; 2024 5G Learning Hub. All rights reserved.</p>
+</footer>
+
 </body>
 </html>

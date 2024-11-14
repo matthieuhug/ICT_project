@@ -3,32 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding 5G</title>
     <link rel="stylesheet" href="styles.css">
-    <title> Project examples</title>
 </head>
 <body>
-    <!-- Header container -->
-    <div id="header-container"></div>
-    
-    <!-- Script to load the header -->
-    <script src="script.js"></script>
 
+<header>
+    <nav id="header-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li> 
+            <li><a href="5g.html">5G</a></li>
+            <li><a href="sdr.html">SDR</a></li>
+            <li><a href="project_examples.html">Project Examples</a></li>
+            <li><a href="guided_implementation.html">Guided Implementation</a></li>
+            <li><a href="qa_troubleshooting.html">Q&A / Troubleshooting</a></li>
+            <li><a href="forum.html">Forum</a></li>
+        </ul>
+    </nav>
+</header>
     <main>
         <section>
             <div class="image-container">
                 <img src="images/srs_ran_logo.png" alt="srsRAN" />
                 <img src="images/OIA.png" alt="OIA" />
                 <img src="images/open5GS.png" alt="Open5GS" />
+                <!-- Add images for Sonica and Open5GS if needed -->
             </div>
             
             <h2>Introduction to Open-Source 4G/5G Network Implementations</h2>
             <p>The development of 4G and 5G networks has transformed global communications, making connectivity faster, more efficient, and increasingly flexible. Traditional mobile network implementations require extensive infrastructure and proprietary hardware, creating significant entry barriers for researchers, developers, and small-scale operators. Open-source 4G/5G solutions, leveraging the flexibility of Software Defined Radio (SDR), provide an accessible, modular alternative that enables users to deploy, test, and innovate on cellular network architectures without large investments.</p>
-            <p>In this context, open-source projects like OpenAirInterface (OAI) and srsRAN have become essential tools. These projects provide a complete stack for building and testing LTE and NR (5G) networks, supporting both virtualized and physical environments. They empower users to explore everything from basic LTE deployments to cutting-edge 5G research. This page will guide you through the details of these two popular platforms, outlining the necessary setup, main features, and potential applications of each.</p>
+            <p>In this context, open-source projects like OpenAirInterface (OAI), srsRAN, Open5GS, and Sonica NBIoT have become essential tools. These projects provide a complete stack for building and testing LTE and NR (5G) networks, supporting both virtualized and physical environments. They empower users to explore everything from basic LTE deployments to cutting-edge 5G research. This page will guide you through the details of these popular platforms, outlining the necessary setup, main features, and potential applications of each.</p>
             
             <h3>Contents</h3>
             <ul>
                 <li><a href="#OAI">OpenAirInterface (OAI)</a></li>
                 <li><a href="#srsRAN">srsRAN</a></li>
+                <li><a href="#open5GS">Open5GS</a></li>
+                <li><a href="#sonicaNBIoT">Sonica NBIoT</a></li>
             </ul>
         </section>
         
@@ -92,6 +103,60 @@
             </ul>
         </section>
         
+        <!-- Add Open5GS section -->
+        <section id="open5GS">
+            <h2>Open5GS</h2>
+            <p><strong>Project Overview:</strong> Open5GS is an open-source project that provides a complete 5G core network solution. It supports all the core network functions for 5G, including subscriber management, data routing, mobility management, and more. Open5GS is widely adopted for testing and research due to its flexibility and ease of use, providing a complete yet lightweight alternative for 5G core network deployments.</p>
+            
+            <h3>Architecture and Components</h3>
+            <ul>
+                <li><strong>Core Network:</strong> Open5GS provides the full 5G core (5GC), including the AMF, SMF, UPF, and more, allowing full network operation.</li>
+                <li><strong>Subscriber Management:</strong> Open5GS includes support for managing subscriber data, helping to maintain user profiles and provide network access controls.</li>
+                <li><strong>Mobile Management:</strong> The project includes various components to manage mobility and session control for seamless communication.</li>
+            </ul>
+            
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>Operating System: Linux (Ubuntu 18.04 or 20.04)</li>
+                <li>Hardware: Server or virtualized environment capable of running the core network</li>
+                <li>Knowledge Requirements: Familiarity with core network principles, IP routing, and 5G architecture</li>
+                <li>Software Dependencies: Docker, MySQL/MariaDB, OpenSSL</li>
+            </ul>
+
+            <h3>Key Capabilities</h3>
+            <ul>
+                <li><strong>5G Core Network:</strong> Open5GS allows for testing and research on the entire 5G core network, supporting use cases such as private network deployments and integration with other platforms.</li>
+                <li><strong>Interoperability:</strong> Open5GS offers extensive interoperability with commercial 5G devices, enabling real-world testing and trials.</li>
+                <li><strong>Flexibility:</strong> Open5GS provides the ability to scale from small test environments to larger deployments.</li>
+            </ul>
+        </section>
+        
+        <!-- Add Sonica NBIoT section -->
+        <section id="sonicaNBIoT">
+            <h2>Sonica NBIoT</h2>
+            <p><strong>Project Overview:</strong> Sonica NBIoT is an open-source platform that provides a framework for building and testing Narrowband IoT (NB-IoT) solutions. Designed for efficient communication in low-power, wide-area networks (LPWANs), Sonica NBIoT supports IoT applications and research in the context of 5G and beyond. It enables users to explore network protocols, optimize performance, and experiment with real-world NB-IoT scenarios.</p>
+
+            <h3>Architecture and Components</h3>
+            <ul>
+                <li><strong>NB-IoT Stack:</strong> Sonica NBIoT includes a complete software stack for NB-IoT, enabling communication between low-power IoT devices and the core network.</li>
+                <li><strong>End-to-End Solution:</strong> It provides both the device and network components to facilitate end-to-end testing of NB-IoT services.</li>
+            </ul>
+
+            <h3>Prerequisites</h3>
+            <ul>
+                <li>Operating System: Linux (Ubuntu or CentOS)</li>
+                <li>Hardware: Compatible SDRs or NB-IoT modems</li>
+                <li>Knowledge Requirements: Basic knowledge of LPWAN and NB-IoT communication</li>
+                <li>Software Dependencies: Docker, OpenSSL, and specific libraries for IoT communication</li>
+            </ul>
+
+            <h3>Key Capabilities</h3>
+            <ul>
+                <li><strong>Low-Power IoT Communication:</strong> Sonica NBIoT enables research and experimentation with LPWANs, providing insights into IoT network optimizations.</li>
+                <li><strong>Integration with 5G:</strong> Sonica NBIoT supports integration with 5G networks, allowing users to explore the role of NB-IoT in 5G ecosystems.</li>
+                <li><strong>Flexible Testing:</strong> The platform offers flexible configurations to test various NB-IoT deployment scenarios, from rural areas to urban settings.</li>
+            </ul>
+        </section>
 
     </main>
 

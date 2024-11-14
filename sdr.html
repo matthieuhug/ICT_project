@@ -3,22 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding 5G</title>
     <link rel="stylesheet" href="styles.css">
-    <title>SDR - Implementing 5G Networks with SDR</title>
 </head>
 <body>
-    <!-- Header container -->
-    <div id="header-container"></div>
-    
-    <!-- Script to load the header -->
-    <script src="script.js"></script>
 
+<header>
+    <nav id="header-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li> 
+            <li><a href="5g.html">5G</a></li>
+            <li><a href="sdr.html">SDR</a></li>
+            <li><a href="project_examples.html">Project Examples</a></li>
+            <li><a href="guided_implementation.html">Guided Implementation</a></li>
+            <li><a href="qa_troubleshooting.html">Q&A / Troubleshooting</a></li>
+            <li><a href="forum.html">Forum</a></li>
+        </ul>
+    </nav>
+</header>
     <main>
         <h1>Software Defined Radio (SDR) in 4G and 5G Networks</h1>
         
         <section>
             <h2>What is Software Defined Radio (SDR)?</h2>
             <p>Software Defined Radio (SDR) is a radio communication system that replaces the traditionally hardware-based components with software. This means that most signal processing functions, such as modulation, filtering, and error correction, can be handled digitally rather than with specialized hardware. This flexibility allows SDR to adapt quickly to new technologies, making it an ideal choice for the fast-evolving fields of 4G and 5G networking.</p>
+            
+            <div class="video-container">
+                <video class="intro-video" controls>
+                    <source src="videos/What is Software Defined Radio.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
             
             <!-- Suggested image: Diagram showing how SDR differs from traditional radio hardware, with blocks representing software replacing physical components. -->
         </section>
@@ -111,37 +127,50 @@
         <section>
             <h2>Specialized SDR Hardware for 4G/5G</h2>
             <p>Though SDR can run on general-purpose computing hardware, specialized SDR devices optimize performance for high-bandwidth applications such as 4G and 5G. Here’s a look at a few high-performance SDR devices used in 5G research:</p>
-
-            <table>
+        
+            <table style="border: 1px solid black; border-collapse: collapse; width: 100%;">
                 <thead>
                     <tr>
-                        <th>Device</th>
-                        <th>Description</th>
-                        <th>Pros</th>
-                        <th>Cons</th>
+                        <th style="border: 1px solid black; padding: 8px;">Device</th>
+                        <th style="border: 1px solid black; padding: 8px;">Description</th>
+                        <th style="border: 1px solid black; padding: 8px;">Pros</th>
+                        <th style="border: 1px solid black; padding: 8px;">Cons</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>USRP X310</td>
-                        <td>A high-performance SDR from Ettus Research suitable for 5G network testing.</td>
-                        <td>High bandwidth, dual-channel, capable of MIMO configurations.</td>
-                        <td>Relatively expensive; requires specialized knowledge to configure.</td>
+                        <td style="border: 1px solid black; padding: 8px;"><a href="https://www.ettus.com/all-products/kit-x310/" target="_blank">USRP X310</a></td>
+                        <td style="border: 1px solid black; padding: 8px;">A high-performance SDR from Ettus Research suitable for 5G network testing.</td>
+                        <td style="border: 1px solid black; padding: 8px;">High bandwidth, dual-channel, capable of MIMO configurations.</td>
+                        <td style="border: 1px solid black; padding: 8px;">Relatively expensive; requires specialized knowledge to configure.</td>
                     </tr>
                     <tr>
-                        <td>Nuand BladeRF xA4</td>
-                        <td>A compact, affordable SDR that supports multiple RF configurations for 4G and some 5G applications.</td>
-                        <td>Cost-effective, flexible, USB connectivity.</td>
-                        <td>Limited 5G support, lower bandwidth than high-end options.</td>
+                        <td style="border: 1px solid black; padding: 8px;"><a href="https://www.nuand.com/bladeRFxA4/" target="_blank">Nuand BladeRF xA4</a></td>
+                        <td style="border: 1px solid black; padding: 8px;">A compact, affordable SDR that supports multiple RF configurations for 4G and some 5G applications.</td>
+                        <td style="border: 1px solid black; padding: 8px;">Cost-effective, flexible, USB connectivity.</td>
+                        <td style="border: 1px solid black; padding: 8px;">Limited 5G support, lower bandwidth than high-end options.</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;"><a href="https://www.limemicro.com/" target="_blank">LimeSDR</a></td>
+                        <td style="border: 1px solid black; padding: 8px;">A versatile, open-source SDR supporting a wide range of frequencies, ideal for 4G/5G testing and experimentation.</td>
+                        <td style="border: 1px solid black; padding: 8px;">Affordable, supports wide frequency range, open-source.</td>
+                        <td style="border: 1px solid black; padding: 8px;">Lower bandwidth compared to high-end SDRs; may require additional accessories for some use cases.</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid black; padding: 8px;"><a href="https://www.hackrf.com/" target="_blank">HackRF One</a></td>
+                        <td style="border: 1px solid black; padding: 8px;">An affordable, general-purpose SDR that works well for 4G/5G experimentation, supporting a broad frequency range.</td>
+                        <td style="border: 1px solid black; padding: 8px;">Inexpensive, good for beginners, wide frequency range.</td>
+                        <td style="border: 1px solid black; padding: 8px;">Lower performance than higher-end models, limited bandwidth and sampling rate.</td>
                     </tr>
                 </tbody>
             </table>
             
             <!-- Suggested image: High-quality photos of each SDR device, showing their design and connectivity options. -->
         </section>
+        
         <section>
             <h2>The Future of SDR: Beyond Terrestrial Networks</h2>
-            <img src="images\The-Future-of-Radio-Communication.jpg" alt="Diagram showing how SDR differs from traditional radio hardware, with blocks representing software replacing physical components." width="45%" height="45%" />
+            <img src="images\The-Future-of-Radio-Communication.jpg" alt="Diagram showing how SDR differs from traditional radio hardware, with blocks representing software replacing physical components." width="100%" height="10%" />
             <p>As the capabilities of SDR continue to evolve, its role is expanding beyond traditional cellular and terrestrial networks. SDR is increasingly seen as a critical technology in several cutting-edge areas, including satellite communications, Internet of Things (IoT) devices, and next-generation wireless networks. Here’s a look at some promising future applications:</p>
         
             <h3>1. Satellite Communications and Space-Based Networks</h3>
