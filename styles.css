@@ -16,6 +16,25 @@ header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Adds margin to the main content area */
+main {
+    max-width: 800px; /* Controls the width of the main content area */
+    margin: 0 auto;   /* Centers the main content */
+    padding: 20px;    /* Adds padding around the content for better readability */
+}
+.image-container {
+    display: flex;
+    justify-content: space-around; /* Espace égal entre les images */
+    align-items: center;           /* Aligne les images sur le même axe vertical */
+    width: 100%;                   /* Largeur de la page */
+    padding: 20px;                 /* Espace autour du conteneur */
+    box-sizing: border-box;        /* Inclure le padding dans la largeur totale */
+}
+
+.image-container img {
+    max-width: 30%;   /* Ajuste la largeur de chaque image */
+    height: auto;     /* Préserve le ratio d'aspect */
+}
 #header-nav ul {
     list-style-type: none;
     margin: 0;
@@ -70,7 +89,30 @@ h1 {
     text-align: center; /* Centrer le titre */
     margin-top: 20px; /* Ajustement de l'espacement au-dessus du titre */
 }
-
+.code-block {
+    background-color: #282c34; /* Dark background */
+    color: #ffffff; /* White text */
+    padding: 15px;
+    border-radius: 5px;
+    overflow: auto;
+    position: relative;
+}
+code {
+    display: block; /* Each code snippet in a new line */
+    margin: 5px 0; /* Space between code snippets */
+    font-family: 'Courier New', Courier, monospace;
+}
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #61dafb; /* Button color */
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #282c34; /* Text color */
+}
 .component-text {
     position: absolute;
     color: red;

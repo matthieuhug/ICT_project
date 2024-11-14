@@ -5,79 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Architecture du Réseau 5G</title>
     <link rel="stylesheet" href="styles.css">
-    
+
+    <!-- Style pour le code et bouton de copie -->
+    <style>
+        #instructions-container {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .code-block {
+            background-color: #f4f4f4;
+            padding: 10px;
+            font-family: monospace;
+            font-weight: bold;
+            position: relative;
+            margin-top: 5px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            padding: 3px 5px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            font-size: 12px;
+        }
+    </style>
+
+    <!-- Script JavaScript -->
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            fetch('header.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('header-container').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement du header:', error);
+                });
+        });
+        // Charger les instructions JSON
+        async function fetchInstructions() {
+            const response = await fetch('instructions.json');
+            return await response.json();
+        }
+
+        // Fonction pour afficher les instructions en fonction de la sélection
+        async function loadInstructions(selectId) {
+            const instructionsData = await fetchInstructions();
+            const selectedValue = document.getElementById(selectId).value;
+            const instructionsElem = document.getElementById(selectId + '-instructions');
+
+            if (instructionsData[selectId] && instructionsData[selectId][selectedValue]) {
+                const instruction = instructionsData[selectId][selectedValue];
+                
+                // Texte d'instruction
+                let htmlContent = `<p>${instruction.text}</p>`;
+                
+                // Section de code avec bouton de copie
+                if (instruction.code) {
+                    htmlContent += `
+                        <div class="code-block">
+                            <pre>${instruction.code}</pre>
+                            <button class="copy-btn" onclick="copyCode('${instruction.code}')">Copy</button>
+                        </div>
+                    `;
+                }
+                
+                instructionsElem.innerHTML = htmlContent;
+            } else {
+                instructionsElem.innerHTML = "Please make a selection to see specific instructions.";
+            }
+        }
+
+        // Fonction pour copier le code
+        function copyCode(code) {
+            navigator.clipboard.writeText(code).then(() => {
+                alert("Code copied to clipboard!");
+            }).catch(err => {
+                console.error("Failed to copy code: ", err);
+            });
+        }
+    </script>
 </head>
 <body>
-        <!-- Conteneur pour le header -->
-        <div id="header-container"></div>
+    <!-- Conteneur pour le header -->
+    <div id="header-container"></div>
+
+    <div id="custom-configurator">
+        <h2>Custom Configuration</h2>
+        
+        <!-- Dropdown Menus -->
+        <label for="ue">Select a UE:</label>
+        <select id="ue" onchange="loadInstructions('ue')">
+            <option value="">--Select--</option>
+            <option value="smartphone">Smartphone</option>
+            <option value="pc">PC</option>
+            <option value="iot">nb-iot</option>
+        </select>
     
-        <!-- Inclusion du script -->
-        <script src="script.js"></script>
-    <div id="architecture">
-        <div id="component-selection">
-            <div>
-                <label>Sélectionnez un UE :</label>
-                <select>
-                    <option value="">--Choisir un UE--</option>
-                    <option value="smartphone-sim">Smartphone + SIM</option>
-                    <option value="smartphone-esim">Smartphone + eSIM</option>
-                    <option value="cellular-modem">Modem Cellulaire</option>
-                    <option value="sdr">SDR</option>
-                </select>
-            </div>
-            <div>
-                <label>Sélectionnez un SDR :</label>
-                <select>
-                    <option value="">--Choisir un SDR--</option>
-                    <option value="limesdr">LimeSDR</option>
-                    <option value="b200">B200</option>
-                    <option value="b210">B210</option>
-                </select>
-            </div>
-            <div>
-                <label>Sélectionnez le RAN logique :</label>
-                <select>
-                    <option value="">--Choisir un RAN logiciel--</option>
-                    <option value="srsran">SRSran</option>
-                    <option value="oia">OpenAirInterface (OIA)</option>
-                </select>
-            </div>
-            <div>
-                <label>Sélectionnez le cœur de réseau :</label>
-                <select>
-                    <option value="">--Choisir un cœur de réseau--</option>
-                    <option value="open5gs">Open5GS</option>
-                    <option value="srsran">SRSran</option>
-                    <option value="oia">OpenAirInterface (OIA)</option>
-                </select>
-            </div>
-            <div>
-                <label>Choose OS :</label>
-                <select>
-                    <option value="">--Choose OS--</option>
-                    <option value="debian">Debian</option>
-                    <option value="ubuntu">Ubuntu 16</option>
-                    <option value="ubuntu">Ubuntu 18</option>
-                    <option value="ubuntu22">Ubuntu 22</option>
-                    <option value="ubuntu">Ubuntu 24</option>
-                    <option value="vm">Virtual machine</option>
-                </select>
-            </div>
-        </div>
-        <div id="network-architecture">
-            <h1>Architecture du Réseau 5G</h1>
-            <div class="image-button-container">
-            <!-- Contenu d'architecture (image, diagramme, etc.) -->
-            <img src="architecture_5G.png" alt="Architecture 5G" style="width: 100%; height: auto;">
-            <div class="ue-image">
-                <img id="phone-image" src="smartphone.png" alt="UE" style="width: 100px; height: auto;"> <!-- L'image de l'UE ici -->
-            </div>
-            </div>
+        <label for="sdr">Select an SDR:</label>
+        <select id="sdr" onchange="loadInstructions('sdr')">
+            <option value="">--Select--</option>
+            <option value="hackrf">HackRF</option>
+            <option value="limesdr">LimeSDR</option>
+            <option value="b210">B210</option>
+        </select>
+    
+        <label for="ran">Select the logical RAN:</label>
+        <select id="ran" onchange="loadInstructions('ran')">
+            <option value="">--Select--</option>
+            <option value="lte">LTE</option>
+            <option value="5g">5G</option>
+        </select>
+    
+        <label for="core">Select the core network:</label>
+        <select id="core" onchange="loadInstructions('core')">
+            <option value="">--Select--</option>
+            <option value="open5gs">Open5GS</option>
+            <option value="amf">AMF-based</option>
+        </select>
+    
+        <label for="os">Choose OS:</label>
+        <select id="os" onchange="loadInstructions('os')">
+            <option value="">--Select--</option>
+            <option value="ubuntu">Ubuntu</option>
+            <option value="centos">CentOS</option>
+        </select>
+        
+        <!-- Containers for each category's instructions -->
+        <div id="instructions-container">
+            <h3>Instructions</h3>
+            
+            <!-- UE Instructions -->
+            <h4>Instructions for the UE</h4>
+            <div id="ue-instructions">Please make a selection for UE to see specific instructions.</div>
+            
+            <!-- SDR Instructions -->
+            <h4>Instructions for the SDR</h4>
+            <div id="sdr-instructions">Please make a selection for SDR to see specific instructions.</div>
+            
+            <!-- RAN Instructions -->
+            <h4>Instructions for the RAN</h4>
+            <div id="ran-instructions">Please make a selection for RAN to see specific instructions.</div>
+            
+            <!-- Core Network Instructions -->
+            <h4>Instructions for the Core Network</h4>
+            <div id="core-instructions">Please make a selection for Core Network to see specific instructions.</div>
+            
+            <!-- OS Instructions -->
+            <h4>Instructions for the OS</h4>
+            <div id="os-instructions">Please make a selection for OS to see specific instructions.</div>
         </div>
     </div>
-    <div id="selection-message" style="display:none; margin-top: 10px; color: grey;">
-        Vous avez sélectionné Open5GS + Ubuntu 22
-    </div>
-    
 </body>
 </html>

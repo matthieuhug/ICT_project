@@ -1,0 +1,27 @@
+{
+    "ue": {
+      "smartphone": {
+        "text": "To configure a smartphone as a UE, follow these steps:",
+        "code": "adb install NetworkApp.apk\nadb shell 'am start -n com.networkapp/.MainActivity'"
+      },
+      "pc": {
+        "text": "For a PC-based UE, ensure the network stack is set up as follows:",
+        "code": "sudo apt update && sudo apt install network-tools\nsudo systemctl enable networking"
+      },
+      "iot": {
+        "text": "To configure an IOT device as a UE, follow these steps:",
+        "code": "adb install NetworkApp.apk\nadb shell 'am start -n com.networkapp/.MainActivity'"
+      }
+    },
+    "sdr": {
+      "hackrf": {
+        "text": "Using HackRF requires the following drivers and software setup:",
+        "code": "sudo apt-get install hackrf\nhackrf_info"
+      },
+      "limesdr": {
+        "text": "For LimeSDR, follow these installation steps:",
+        "code": "sudo apt-get install limesuite\nLimeUtil --update"
+      }
+    }
+  }
+  
