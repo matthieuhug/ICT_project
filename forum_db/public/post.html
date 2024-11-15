@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Detail | Community Forum</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #0D4B8F;
+    }
+
+    .post-detail {
+      padding: 20px;
+      background-color: #f9f9f9;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
+
+    .post-title {
+      color: #0D4B8F;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .post-content {
+      font-size: 1.1em;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .answers-section {
+      margin-top: 30px;
+    }
+
+    .answer {
+      background-color: #f1f1f1;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .answer p {
+      font-size: 1em;
+      color: #333;
+    }
+
+    .form-section {
+      margin-top: 30px;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+    }
+
+    .form-section textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 1em;
+      margin-bottom: 10px;
+    }
+
+    .form-section button {
+      background-color: #0D4B8F;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 1.1em;
+    }
+
+    .form-section button:hover {
+      background-color: #005f86;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Post Detail</h1>
+
+    <div id="post-detail" class="post-detail">
+      <!-- Post details will be dynamically populated here -->
+    </div>
+
+    <div class="answers-section">
+      <h2>Answers</h2>
+      <div id="answers">
+        <!-- Answers will be dynamically populated here -->
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3>Add Your Answer</h3>
+      <form id="addAnswerForm">
+        <textarea id="answer" name="answer" rows="4" placeholder="Write your answer here..." required></textarea>
+        <button type="submit">Submit Answer</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id');
+
+    if (postId) {
+      fetch(`/posts/${postId}`)
+        .then(response => response.json())
+        .then(post => {
+          // Display the post details
+          document.getElementById('post-detail').innerHTML = `
+            <h2 class="post-title">${post.title}</h2>
+            <p class="post-content">${post.content}</p>
+          `;
+
+          // Display the answers
+          const answersDiv = document.getElementById('answers');
+          if (post.answers && post.answers.length > 0) {
+            post.answers.forEach(answer => {
+              const answerDiv = document.createElement('div');
+              answerDiv.classList.add('answer');
+              answerDiv.innerHTML = `<p>${answer.content}</p>`;
+              answersDiv.appendChild(answerDiv);
+            });
+          } else {
+            answersDiv.innerHTML = '<p>No answers yet. Be the first to answer!</p>';
+          }
+
+          // Handle new answer form submission
+          document.getElementById('addAnswerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const answerContent = document.getElementById('answer').value;
+
+            fetch(`/posts/${postId}/answers`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ content: answerContent }),
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Answer added:', data);
+              window.location.reload();  // Reload the page to show the new answer
+            })
+            .catch(error => console.error('Error:', error));
+          });
+        })
+        .catch(error => console.error('Error fetching post:', error));
+    }
+  </script>
+</body>
+</html>
