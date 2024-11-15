@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USRP and UHD Setup Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .code-block button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .code-block button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>USRP and UHD Setup Guide</h1>
+
+    <section>
+        <h2>Introduction to USRP</h2>
+        <p>USRP (Universal Software Radio Peripheral) devices are software-defined radios (SDRs) that enable configurable RF front end with an FPGA or programmable system-on-chip (SoC) to perform digital functions. FPGAs provide flexibility, allowing users to reconfigure hardware for specific use cases after manufacturing. With USRPs, users can select frequency ranges, modulation types, gain levels, antenna types, and more.</p>
+    </section>
+
+    <section>
+        <h2>UHD Installation</h2>
+        <p>USRP devices work using Ettus Research libraries called UHD (Universal Hardware Driver). The following steps guide you through installing the UHD libraries to use with USRP devices:</p>
+
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code1')">Copy</button>
+            <pre id="code1"><code>sudo apt-get install autoconf automake build-essential ccache cmake cpufrequtils doxygen ethtool \
+g++ git inetutils-tools libboost-all-dev libncurses5 libncurses5-dev libusb-1.0-0 libusb-1.0-0-dev \
+libusb-dev python3-dev python3-mako python3-numpy python3-requests python3-scipy python3-setuptools \
+python3-ruamel.yaml</code></pre>
+        </div>
+
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code2')">Copy</button>
+            <pre id="code2"><code>git clone https://github.com/EttusResearch/uhd.git</code></pre>
+            <pre id="code2"><code>cd <uhd-repo-path>/host</code></pre>
+            <pre id="code2"><code>mkdir build</code></pre>
+            <pre id="code2"><code>cd build</code></pre>
+            <pre id="code2"><code>cmake ../</code></pre>
+            <pre id="code2"><code>make</code></pre>
+            <pre id="code2"><code>make test # This step is optional</code></pre>
+            <pre id="code2"><code>sudo make install</code></pre>
+            <pre id="code2"><code>sudo ldconfig</code></pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>Setting Up USRP X310</h2>
+        <p>The USRP X310 requires the installation of daughterboards for antenna connections. These daughterboards need to be correctly placed onto the main board. The device should then be connected via an Ethernet cable, using a fiber-to-RJ45 conversion module. Once connected to the host device, the following commands help discover and configure the USRP:</p>
+
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code3')">Copy</button>
+            <pre id="code3"><code>ping 192.168.10.2</code></pre>
+            <pre id="code3"><code>uhd_usrp_probe --args addr=192.168.10.2</code></pre>
+            <pre id="code3"><code>uhd_image_loader --args="type=x300,addr=192.168.10.2,fpga=HG"</code></pre>
+        </div>
+
+        <p>Once the USRP X310 is set up, you can perform additional configuration, such as:</p>
+
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code4')">Copy</button>
+            <pre id="code4"><code>uhd_cal_rx_iq_balance --args addr=192.168.40.3</code></pre>
+            <pre id="code4"><code>uhd_cal_tx_iq_balance --args addr=192.168.40.3</code></pre>
+            <pre id="code4"><code>uhd_cal_tx_dc_offset --args addr=192.168.40.3</code></pre>
+        </div>
+
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code5')">Copy</button>
+            <pre id="code5"><code>sudo ethtool -G eno2 tx 4096 rx 4096</code></pre>
+            <pre id="code5"><code>sudo sysctl -w net.core.wmem_max=33554432</code></pre>
+            <pre id="code5"><code>sudo sysctl -w net.core.rmem_max=33554432</code></pre>
+            <pre id="code5"><code>sudo sysctl -w net.core.wmem_default=33554432</code></pre>
+            <pre id="code5"><code>sudo sysctl -w net.core.rmem_default=33554432</code></pre>
+        </div>
+
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code6')">Copy</button>
+            <pre id="code6"><code>sudo groupadd usrp</code></pre>
+            <pre id="code6"><code>sudo usermod -aG usrp $USER</code></pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>Setting Up USRP B210</h2>
+        <p>The USRP B210 is simpler than the X310. It doesn’t require daughterboard installation and connects to the host via USB. To discover and configure the USRP B210, use the following commands:</p>
+
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code7')">Copy</button>
+            <pre id="code7"><code>sudo uhd_usrp_probe</code></pre>
+            <pre id="code7"><code>sudo uhd_find_devices</code></pre>
+        </div>
+    </section>
+
+    <script>
+        function copyToClipboard(id) {
+            var textToCopy = document.querySelector(id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>

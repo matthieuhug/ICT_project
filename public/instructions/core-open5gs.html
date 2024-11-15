@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install and Configure Open5GS 5G Core</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .code-block button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .code-block button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        /* Styling for success alert */
+        #alert-message {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            position: fixed;
+            top: 10%;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Install and Configure Open5GS 5G Core Network</h1>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>Open5GS is an open-source 5G core network implementation. This guide will show you how to install Open5GS and configure a basic 5G core network using its components, based on the official Open5GS quickstart guide.</p>
+    </section>
+
+    <section>
+        <h2>Step 1: System Requirements</h2>
+        <p>Before installing Open5GS, ensure your system meets the following requirements:</p>
+        <ul>
+            <li>A server or virtual machine with at least 4GB RAM and 2 CPUs.</li>
+            <li>Ubuntu 20.04 or 22.04 as the operating system (other Linux distributions can also work with adjustments).</li>
+            <li>Root privileges (sudo) for installing dependencies.</li>
+        </ul>
+        <p>For this guide, we will assume you are using Ubuntu 20.04 or 22.04 LTS.</p>
+    </section>
+
+    <section>
+        <h2>Step 2: Install Dependencies</h2>
+        <p>Before installing Open5GS, we need to install the required dependencies:</p>
+        <ul>
+            <li>Update the package list and upgrade the system:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code1')">Copy</button>
+                <pre id="code1"><code>sudo apt update && sudo apt upgrade -y</code></pre>
+            </div>
+
+            <li>Install required packages and tools:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code2')">Copy</button>
+                <pre id="code2"><code>sudo apt install -y git build-essential cmake pkg-config libboost-all-dev libssl-dev libffi-dev libpcap-dev libncurses5-dev libsctp-dev libcurl4-openssl-dev libmicrohttpd-dev</code></pre>
+            </div>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 3: Install Open5GS</h2>
+        <p>Now, we can install Open5GS from the official GitHub repository:</p>
+        <ul>
+            <li>Clone the Open5GS repository:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code3')">Copy</button>
+                <pre id="code3"><code>git clone https://github.com/open5gs/open5gs.git</code></pre>
+            </div>
+
+            <li>Navigate into the cloned Open5GS directory:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code4')">Copy</button>
+                <pre id="code4"><code>cd open5gs</code></pre>
+            </div>
+
+            <li>Create a build directory:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code5')">Copy</button>
+                <pre id="code5"><code>mkdir build && cd build</code></pre>
+            </div>
+
+            <li>Configure the build system with CMake:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code6')">Copy</button>
+                <pre id="code6"><code>cmake ..</code></pre>
+            </div>
+
+            <li>Compile and install Open5GS:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code7')">Copy</button>
+                <pre id="code7"><code>make -j$(nproc) && sudo make install</code></pre>
+            </div>
+
+            <li>Once the installation is complete, update the shared library cache:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code8')">Copy</button>
+                <pre id="code8"><code>sudo ldconfig</code></pre>
+            </div>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 4: Configure the Open5GS 5G Core Network</h2>
+        <p>After installing Open5GS, you need to configure the core network components:</p>
+        <ul>
+            <li>Generate a basic configuration file for Open5GS:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code9')">Copy</button>
+                <pre id="code9"><code>sudo open5gs-gen-configuration</code></pre>
+            </div>
+
+            <li>Start the Open5GS services (MME, SGW, PGW, HSS, etc.):</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code10')">Copy</button>
+                <pre id="code10"><code>sudo systemctl start open5gs-mmed</code></pre>
+            </div>
+
+            <li>Enable Open5GS services to start on boot:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code11')">Copy</button>
+                <pre id="code11"><code>sudo systemctl enable open5gs-mmed</code></pre>
+            </div>
+
+            <li>Repeat the above for other Open5GS services like SGW, PGW, etc.:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code12')">Copy</button>
+                <pre id="code12"><code>sudo systemctl start open5gs-sgw</code></pre>
+            </div>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 5: Test the 5G Core Network</h2>
+        <p>Once all services are running, you can test your Open5GS 5G core network:</p>
+        <ul>
+            <li>Verify the Open5GS services are running properly:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code13')">Copy</button>
+                <pre id="code13"><code>sudo systemctl status open5gs-mmed</code></pre>
+            </div>
+
+            <li>Test the network connectivity using <code>ping</code>:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code14')">Copy</button>
+                <pre id="code14"><code>ping 192.168.1.100</code></pre>
+            </div>
+            <p>If everything is set up correctly, the core network should respond to the ping request, confirming the successful installation of the 5G core.</p>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Conclusion</h2>
+        <p>Congratulations! You have successfully installed and configured the Open5GS 5G core network. You can now integrate additional components such as the User Equipment (UE) and 5G gNB (Next Generation Node B) for a full 5G system. Always refer to the official Open5GS documentation for more advanced configurations and troubleshooting.</p>
+    </section>
+
+    <!-- Success Alert -->
+    <div id="alert-message"></div>
+
+    <script>
+        function copyToClipboard(id) {
+            var textToCopy = document.querySelector(id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            var alertMessage = document.getElementById('alert-message');
+            alertMessage.innerText = 'Copied to clipboard!';
+            alertMessage.style.display = 'block';
+            setTimeout(function() {
+                alertMessage.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>

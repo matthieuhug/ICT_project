@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ubuntu Installation Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .code-block button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .code-block button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ubuntu Installation Guide</h1>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>Ubuntu is one of the most popular Linux distributions. It's user-friendly and widely used in both personal and professional environments. This guide will walk you through the steps to install Ubuntu on your machine.</p>
+    </section>
+
+    <section>
+        <h2>Step 1: Download Ubuntu</h2>
+        <p>To install Ubuntu, you first need to download the installation ISO file. Follow these steps:</p>
+        <ul>
+            <li>Go to the official Ubuntu website: <a href="https://ubuntu.com/download" target="_blank">https://ubuntu.com/download</a></li>
+            <li>Select the version of Ubuntu you want to install (LTS recommended for stability).</li>
+            <li>Download the ISO file to your computer.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 2: Create a Bootable USB Drive</h2>
+        <p>You will need a USB drive with at least 4GB of storage to create a bootable Ubuntu installation media. Here's how to do it:</p>
+        <ul>
+            <li>Download a tool like <a href="https://rufus.ie" target="_blank">Rufus</a> (for Windows) or use the "Startup Disk Creator" (for Ubuntu).</li>
+            <li>Insert the USB drive into your computer.</li>
+            <li>Open the tool (e.g., Rufus or Startup Disk Creator) and select the downloaded Ubuntu ISO file.</li>
+            <li>Choose the USB drive as the target disk and click "Start" to create the bootable media.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 3: Boot from USB</h2>
+        <p>Once your bootable USB drive is ready, it's time to boot from it:</p>
+        <ul>
+            <li>Insert the bootable USB drive into the machine where you want to install Ubuntu.</li>
+            <li>Reboot the machine and enter the BIOS or UEFI settings (usually by pressing F2, F10, ESC, or DEL during startup).</li>
+            <li>In the BIOS/UEFI settings, change the boot order to boot from the USB drive first.</li>
+            <li>Save the changes and exit the BIOS/UEFI settings. The machine will reboot and boot from the USB drive.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 4: Install Ubuntu</h2>
+        <p>Now that you're booted into the Ubuntu installation environment, follow these steps:</p>
+        <ul>
+            <li>After booting, you should see the Ubuntu welcome screen. Select "Install Ubuntu".</li>
+            <li>Choose your language and click "Continue".</li>
+            <li>Select your keyboard layout and click "Continue".</li>
+            <li>If you are connected to the internet, you can choose to download updates during installation and install third-party software for graphics and Wi-Fi hardware (optional).</li>
+            <li>Next, you will be asked to select the installation type. For most users, "Erase disk and install Ubuntu" is recommended (This will remove all data on the disk, so make sure to back up your files first).</li>
+            <li>Follow the prompts to set your timezone, username, and password.</li>
+            <li>Once you're ready, click "Install Now" and the installation process will begin. This may take some time, depending on your system.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 5: Finalizing the Installation</h2>
+        <p>After the installation process is complete, you will be asked to reboot your system:</p>
+        <ul>
+            <li>Click "Restart Now".</li>
+            <li>Remove the installation USB drive when prompted, and hit Enter to complete the reboot.</li>
+            <li>Your system will now boot into Ubuntu, where you can log in using the username and password you set during the installation process.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 6: Post-Installation Steps</h2>
+        <p>After Ubuntu is installed, here are some post-installation steps you may want to consider:</p>
+        <ul>
+            <li>Update your system to make sure you have the latest security patches and software updates. Open a terminal and run the following command:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code1')">Copy</button>
+                <pre id="code1"><code>sudo apt update && sudo apt upgrade</code></pre>
+            </div>
+
+            <li>Install additional software. For example, you can install software like VLC, GIMP, etc., using the following command:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code2')">Copy</button>
+                <pre id="code2"><code>sudo apt install vlc gimp</code></pre>
+            </div>
+
+            <li>Configure your system settings, such as display resolution, power settings, and privacy options.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Conclusion</h2>
+        <p>Congratulations, you’ve successfully installed Ubuntu on your machine! You can now start exploring the Linux world. If you run into any issues during the installation, the Ubuntu forums and documentation are great resources for troubleshooting.</p>
+    </section>
+
+    <script>
+        function copyToClipboard(id) {
+            var textToCopy = document.querySelector(id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>

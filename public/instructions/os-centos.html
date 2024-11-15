@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CentOS Installation Guide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .code-block button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .code-block button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CentOS Installation Guide</h1>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>CentOS (Community ENTerprise Operating System) is a free and open-source Linux distribution based on Red Hat Enterprise Linux (RHEL). It's ideal for servers and development environments. This guide will walk you through the process of installing CentOS on your machine.</p>
+    </section>
+
+    <section>
+        <h2>Step 1: Download CentOS</h2>
+        <p>To install CentOS, you first need to download the installation ISO file. Follow these steps:</p>
+        <ul>
+            <li>Go to the official CentOS website: <a href="https://www.centos.org/download/" target="_blank">https://www.centos.org/download/</a></li>
+            <li>Select the version of CentOS you want to install (CentOS 7 or CentOS Stream recommended).</li>
+            <li>Download the ISO file to your computer.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 2: Create a Bootable USB Drive</h2>
+        <p>You will need a USB drive with at least 4GB of storage to create a bootable CentOS installation media. Here's how to do it:</p>
+        <ul>
+            <li>Download a tool like <a href="https://rufus.ie" target="_blank">Rufus</a> (for Windows) or use the "Startup Disk Creator" (for Ubuntu).</li>
+            <li>Insert the USB drive into your computer.</li>
+            <li>Open the tool (e.g., Rufus or Startup Disk Creator) and select the downloaded CentOS ISO file.</li>
+            <li>Choose the USB drive as the target disk and click "Start" to create the bootable media.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 3: Boot from USB</h2>
+        <p>Once your bootable USB drive is ready, it's time to boot from it:</p>
+        <ul>
+            <li>Insert the bootable USB drive into the machine where you want to install CentOS.</li>
+            <li>Reboot the machine and enter the BIOS or UEFI settings (usually by pressing F2, F10, ESC, or DEL during startup).</li>
+            <li>In the BIOS/UEFI settings, change the boot order to boot from the USB drive first.</li>
+            <li>Save the changes and exit the BIOS/UEFI settings. The machine will reboot and boot from the USB drive.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 4: Install CentOS</h2>
+        <p>Now that you're booted into the CentOS installation environment, follow these steps:</p>
+        <ul>
+            <li>After booting, you should see the CentOS welcome screen. Select "Install CentOS" and press Enter.</li>
+            <li>Choose your language and click "Continue".</li>
+            <li>Select your keyboard layout and click "Continue".</li>
+            <li>For most users, you can choose the default settings (like "Automatically partition the disk" for the disk selection).</li>
+            <li>Set your time zone and click "Done".</li>
+            <li>Click "Begin Installation" to start the installation process.</li>
+            <li>During the installation, you'll be prompted to create a root password and a user account. Fill in these details as required.</li>
+            <li>Once the installation is complete, click "Reboot" to restart the system.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 5: Finalizing the Installation</h2>
+        <p>After the installation process is complete, follow these steps to finalize the setup:</p>
+        <ul>
+            <li>Remove the installation USB drive when prompted and press Enter to reboot the system.</li>
+            <li>Your system will now boot into CentOS, where you can log in using the root password or the user account you created during installation.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 6: Post-Installation Steps</h2>
+        <p>After CentOS is installed, here are some post-installation steps you may want to consider:</p>
+        <ul>
+            <li>Update your system to make sure you have the latest security patches and software updates. Open a terminal and run the following command:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code1')">Copy</button>
+                <pre id="code1"><code>sudo yum update -y</code></pre>
+            </div>
+
+            <li>Install additional software. For example, you can install software like <strong>VLC</strong> or <strong>GIMP</strong> using the following command:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code2')">Copy</button>
+                <pre id="code2"><code>sudo yum install vlc gimp -y</code></pre>
+            </div>
+
+            <li>Configure system settings, including enabling firewall rules, SELinux configuration, or network settings if necessary.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Conclusion</h2>
+        <p>Congratulations, you’ve successfully installed CentOS on your machine! You can now start using CentOS for your server or development tasks. If you encounter any issues during the installation, the CentOS community forums and documentation are excellent resources for troubleshooting.</p>
+    </section>
+
+    <script>
+        function copyToClipboard(id) {
+            var textToCopy = document.querySelector(id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>

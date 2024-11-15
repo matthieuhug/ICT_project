@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gNodeB Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .code-block button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .code-block button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>gNodeB Setup</h1>
+    <p>This section explains in detail how to set up the gNodeB for the test bench. The process follows several installation, configuration, and launch steps.</p>
+
+    <section>
+        <h2>2.1 Installing the gNodeB</h2>
+        <p>For this installation, we have chosen Ubuntu 20.04 as it is more suited for the OAI RAN build of this project. Ubuntu 22.04 and 24.04 lack certain dependencies that have not yet been upgraded for the latest versions.</p>
+        <p>The first step is to clone the OpenAirInterface repository:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code1')">Copy</button>
+            <pre id="code1"><code>git clone https://gitlab.eurecom.fr/oai/openairinterface5g.git ~/openairinterface5g</code></pre>
+            <p>Then, change the directory to the cloned repo and checkout the correct branch:</p>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code2')">Copy</button>
+                <pre id="code2"><code>cd ~/openairinterface5g</code></pre>
+                <pre id="code2"><code>git checkout develop</code></pre>
+            </div>
+            <p>After this, build the dependencies for the gNodeB:</p>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code3')">Copy</button>
+                <pre id="code3"><code>cd cmake_targets</code></pre>
+                <pre id="code3"><code>sudo ./build_oai -I</code></pre>
+            </div>
+            <p>If the dependencies are successfully installed, you can proceed to build the gNodeB:</p>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code4')">Copy</button>
+                <pre id="code4"><code>cd ~/openairinterface5g</code></pre>
+                <pre id="code4"><code>source oaienv</code></pre>
+                <pre id="code4"><code>cd cmake_targets</code></pre>
+                <pre id="code4"><code>./build_oai -w USRP --ninja --gNB -C</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>2.2 Configuring the gNodeB</h2>
+        <p>After building the gNodeB, you need to configure it to connect to the core network. The configuration file to modify is located at:</p>
+        <pre><code>/openairinterface5g/ci-scripts/conffiles</code></pre>
+        <p>The exact file depends on the USRP model being used. In this case, we are using a USRP B210.</p>
+        <p>Modify the following parameters in the configuration file to match the Core Network settings:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code5')">Copy</button>
+            <pre id="code5"><code>Active_gNBs = ( "gNB-OAI" );</code></pre>
+            <pre id="code5"><code>Asn1_verbosity = "none";</code></pre>
+            <pre id="code5"><code>gNBs = (</code></pre>
+            <pre id="code5"><code>{</code></pre>
+            <pre id="code5"><code>gNB_ID = 0xe00;</code></pre>
+            <pre id="code5"><code>gNB_name = "gNB-OAI";</code></pre>
+            <pre id="code5"><code>tracking_area_code = 1;</code></pre>
+            <pre id="code5"><code>plmn_list = ({</code></pre>
+            <pre id="code5"><code>mcc = 001;</code></pre>
+            <pre id="code5"><code>mnc = 01;</code></pre>
+            <pre id="code5"><code>mnc_length = 2;</code></pre>
+            <pre id="code5"><code>snssaiList = (</code></pre>
+            <pre id="code5"><code>{</code></pre>
+            <pre id="code5"><code>sst = 1;</code></pre>
+            <pre id="code5"><code>sd = 0x010203;</code></pre>
+            <pre id="code5"><code>},</code></pre>
+            <pre id="code5"><code>{</code></pre>
+            <pre id="code5"><code>sst = 1;</code></pre>
+            <pre id="code5"><code>sd = 0x010203;</code></pre>
+            <pre id="code5"><code>},</code></pre>
+            <pre id="code5"><code>{</code></pre>
+            <pre id="code5"><code>sst = 1;</code></pre>
+            <pre id="code5"><code>sd = 0xffffff;</code></pre>
+            <pre id="code5"><code>}</code></pre>
+            <pre id="code5"><code>);</code></pre>
+            <pre id="code5"><code>});</code></pre>
+        </div>
+        <p>These settings should be aligned with the ones in the Core Network configuration for the gNodeB to connect correctly.</p>
+    </section>
+
+    <section>
+        <h2>2.3 Launching the gNodeB</h2>
+        <p>Once the gNodeB is built and configured, you can launch it using the following script. The configuration file to use will be specified as part of the command.</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code6')">Copy</button>
+            <pre id="code6"><code>sudo ./nr-softmodem -O ../../../targets/PROJECTS/GENERIC-NR-5GC/CONF/gnb.sa.band78.fr1.106PRB.usrpb210.conf --gNBs.[0].min_rxtxtime 6 --sa -E --continuous-tx</code></pre>
+        </div>
+    </section>
+
+    <script>
+        function copyToClipboard(id) {
+            var textToCopy = document.querySelector(id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>

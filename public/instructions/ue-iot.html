@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure BC95 or BC96 for NB-IoT Network</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .code-block button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .code-block button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Configure BC95 or BC96 for NB-IoT Network</h1>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>The BC95 and BC96 modules are LTE Cat M1/NB-IoT modules developed by Quectel, commonly used for Internet of Things (IoT) applications. This guide will help you configure these modules to connect to an NB-IoT network.</p>
+    </section>
+
+    <section>
+        <h2>Step 1: Prepare the Hardware</h2>
+        <p>Before configuring the BC95 or BC96 module, make sure you have the following hardware ready:</p>
+        <ul>
+            <li>BC95 or BC96 NB-IoT module</li>
+            <li>SIM card with an NB-IoT data plan</li>
+            <li>Microcontroller or USB to Serial adapter to communicate with the module</li>
+            <li>Antennas for the module</li>
+        </ul>
+        <p>Ensure the hardware is connected properly, especially the serial communication between the microcontroller and the BC95/BC96 module.</p>
+    </section>
+
+    <section>
+        <h2>Step 2: Connect the Module to a Serial Terminal</h2>
+        <p>To configure the BC95 or BC96, connect it to a serial terminal such as <strong>PuTTY</strong> (Windows) or <strong>minicom</strong> (Linux). Use the following steps:</p>
+        <ul>
+            <li>Connect the TX and RX pins of the BC95/BC96 to the appropriate UART pins of your microcontroller or USB-to-Serial adapter.</li>
+            <li>Set the baud rate to 115200 (default for the BC95/BC96) in the terminal program.</li>
+            <li>Open the serial terminal and ensure you can communicate with the module (you should get a prompt or echo of your input). If the communication is not established, double-check the connections and serial settings.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 3: Initialize the Module</h2>
+        <p>Once the serial communication is set up, power on the module and initialize it with basic AT commands. Enter the following commands in the serial terminal:</p>
+        <ul>
+            <li>Check module response:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code1')">Copy</button>
+                <pre id="code1"><code>AT</code></pre>
+            </div>
+            <p>If the module is working correctly, you should see <code>OK</code> in response.</p>
+
+            <li>Check the firmware version:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code2')">Copy</button>
+                <pre id="code2"><code>AT+CGMR</code></pre>
+            </div>
+            <p>The module will return the firmware version.</p>
+
+            <li>Check the SIM card status:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code3')">Copy</button>
+                <pre id="code3"><code>AT+CPIN?</code></pre>
+            </div>
+            <p>Ensure that the SIM card is correctly inserted and the module is able to read it.</p>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 4: Set Up the Network</h2>
+        <p>To configure the module for NB-IoT, you need to set the appropriate network settings. These include enabling the NB-IoT mode and selecting the correct band for the network.</p>
+        <ul>
+            <li>Set the module to NB-IoT mode:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code4')">Copy</button>
+                <pre id="code4"><code>AT+CSQ</code></pre>
+            </div>
+            <p>This command checks the signal quality of the network. A higher value is better.</p>
+
+            <li>Set the band for NB-IoT (depending on your region):</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code5')">Copy</button>
+                <pre id="code5"><code>AT+CBAND=1</code></pre>
+            </div>
+            <p>The <code>1</code> indicates Band 3 (you can choose the appropriate band depending on your operator and location).</p>
+
+            <li>Set the module to LTE Cat M1 or NB-IoT:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code6')">Copy</button>
+                <pre id="code6"><code>AT+CSCON=1</code></pre>
+            </div>
+            <p>This command switches the module to LTE Cat M1 or NB-IoT mode, depending on the network configuration.</p>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 5: Attach to the NB-IoT Network</h2>
+        <p>To connect the module to the NB-IoT network, use the following AT commands:</p>
+        <ul>
+            <li>Attach to the network:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code7')">Copy</button>
+                <pre id="code7"><code>AT+CGATT=1</code></pre>
+            </div>
+            <p>The module should return <code>OK</code> if it successfully attaches to the network.</p>
+
+            <li>Check the registration status:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code8')">Copy</button>
+                <pre id="code8"><code>AT+CREG?</code></pre>
+            </div>
+            <p>The command will return the registration status. A value of <code>0,1</code> or <code>0,5</code> indicates successful network registration.</p>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Step 6: Data Transmission</h2>
+        <p>Once the module is connected to the NB-IoT network, you can start sending and receiving data. For this, you need to configure the module to connect to a server or IoT platform.</p>
+        <ul>
+            <li>Set up the APN (Access Point Name) provided by your mobile operator:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code9')">Copy</button>
+                <pre id="code9"><code>AT+CGDCONT=1,"IP","<your-apn>"</code></pre>
+            </div>
+            <p>Replace <code>&lt;your-apn&gt;</code> with the APN provided by your mobile carrier.</p>
+
+            <li>Activate the PDP context (this connects the module to the internet):</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code10')">Copy</button>
+                <pre id="code10"><code>AT+CGACT=1,1</code></pre>
+            </div>
+            <p>The module should return <code>OK</code> to confirm the PDP context is activated.</p>
+
+            <li>Check the IP address assigned to the module:</li>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code11')">Copy</button>
+                <pre id="code11"><code>AT+CGPADDR=1</code></pre>
+            </div>
+            <p>If successful, the module will return the IP address assigned to it.</p>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Conclusion</h2>
+        <p>You have successfully configured your BC95 or BC96 module to connect to an NB-IoT network. You can now use the module for IoT applications, including data transmission to servers or IoT platforms. Always ensure your SIM card has the correct NB-IoT plan and that you're using the correct frequency bands for your region.</p>
+    </section>
+
+    <script>
+        function copyToClipboard(id) {
+            var textToCopy = document.querySelector(id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>

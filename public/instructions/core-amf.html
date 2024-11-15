@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Core Network Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        pre {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            overflow-x: auto;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .code-block button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .code-block button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>The Core Network Setup</h1>
+    <p>This section explains in detail how the core network has been set up for this test bench. This allows us to make this process reproducible and allow tweaking for later work and updates to the system.</p>
+
+    <section>
+        <h2>1. First Core Network Setup Choices</h2>
+        <p>Two choices are possible regarding the Core Network setup:</p>
+        <ul>
+            <li><strong>Single Machine Setup:</strong> The core network is set up on the same machine as the gNodeB. This is a more accessible setup in case of limited equipment but may lead to system instability as the gNodeB is processing-intensive. In this case, no routing is needed between the gNodeB and the Core Network, making the setup simpler.</li>
+            <li><strong>Separate Machine Setup:</strong> The core network is set up on a secondary machine, which will handle all core network processing. A simple routing configuration is required to manage the traffic between the gNodeB and the Core Network.</li>
+        </ul>
+        <p>The Core Network used in this guide is OpenAirInterface’s product, which is best suited for Ubuntu 20.04 LTS, the same version used for the gNodeB setup.</p>
+    </section>
+
+    <section>
+        <h2>1.1 System Tweaking</h2>
+        <p>For optimal performance, it's recommended to install low-latency kernels on the Linux OS, which reduces communication delays between the SDR and the processors. The following steps show how to install and configure the low-latency kernel:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code1')">Copy</button>
+            <pre id="code1"><code>sudo apt-get install linux-image-lowlatency</code> # Installing low-latency headers</pre>
+            <p>After installation, reboot your system to select the low-latency kernel from the boot menu. Be aware that the system will default to the old kernel if not manually switched.</p>
+        </div>
+        <p>Now, to ensure the processors run at full performance mode, use the following commands:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code2')">Copy</button>
+            <pre id="code2"><code>watch grep "cpu MHz" /proc/cpuinfo</code></pre>
+            <p><code>sudo apt-get install i7z</code> # Install i7z for CPU performance monitoring</p>
+            <p><code>sudo i7z</code></p>
+            <p><code>sudo apt-get install cpufrequtils</code></p>
+            <p><code>sudo nano /etc/default/cpufrequtils</code> # Edit file to set CPU governor</p>
+        </div>
+        <p>Set the CPU governor to performance:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code3')">Copy</button>
+            <pre id="code3"><code>GOVERNOR="performance"</code></pre>
+            <p>Disable the default on-demand governor and set performance mode:</p>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code4')">Copy</button>
+                <pre id="code4"><code>sudo update-rc.d ondemand disable</code></pre>
+                <pre id="code4"><code>echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor</code></pre>
+            </div>
+        </div>
+        <p>Now your system is optimized for maximum performance with the low-latency kernel.</p>
+    </section>
+
+    <section>
+        <h2>1.2 Installing the Core Network</h2>
+        <p>The core network used in this setup is from OpenAirInterface, which provides a functional 5G SA Core Network. It can be cloned from their GitLab repository:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code5')">Copy</button>
+            <pre id="code5"><code>git clone --branch v2.0.1 https://gitlab.eurecom.fr/oai/cn5g/oai-cn5g-fed.git</code></pre>
+            <p>Navigate to the project directory and sync components:</p>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code6')">Copy</button>
+                <pre id="code6"><code>cd oai-cn5g-fed</code></pre>
+                <pre id="code6"><code>git checkout -f v2.0.1</code></pre>
+                <pre id="code6"><code>./scripts/syncComponents.sh</code></pre>
+                <pre id="code6"><code>git submodule deinit --all --force</code></pre>
+                <pre id="code6"><code>git submodule init</code></pre>
+                <pre id="code6"><code>git submodule update</code></pre>
+            </div>
+        </div>
+        <p>The Core Network is now cloned and ready for configuration.</p>
+    </section>
+
+    <section>
+        <h2>1.3 Launching the Core Network</h2>
+        <p>Before launching the Core Network, upgrade the Docker installation:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code7')">Copy</button>
+            <pre id="code7"><code>cd /usr/local/bin && sudo rm -rf docker-compose</code></pre>
+            <pre id="code7"><code>sudo curl -SL https://github.com/docker/compose/releases/download/v2.1.1/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose</code></pre>
+            <pre id="code7"><code>sudo chmod +x docker-compose</code></pre>
+        </div>
+        <p>Next, update the nameservers to use Google DNS for the UE:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code8')">Copy</button>
+            <pre id="code8"><code>sudo nano /etc/resolv.conf</code></pre>
+            <p>Add the following lines:</p>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code9')">Copy</button>
+                <pre id="code9"><code>nameserver 8.8.8.8</code></pre>
+                <pre id="code9"><code>nameserver 8.8.4.4</code></pre>
+            </div>
+            <p>Reload the configuration:</p>
+            <div class="code-block">
+                <button onclick="copyToClipboard('#code10')">Copy</button>
+                <pre id="code10"><code>sudo systemctl daemon-reload</code></pre>
+                <pre id="code10"><code>sudo systemctl restart docker</code></pre>
+            </div>
+        </div>
+        <p>Now that the Docker and Docker Compose configurations are set, launch the Core Network with:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code11')">Copy</button>
+            <pre id="code11"><code>sudo python3 core-network.py --type start-basic</code></pre>
+        </div>
+        <p>To stop the Core Network, run the following command:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code12')">Copy</button>
+            <pre id="code12"><code>sudo python3 core-network.py --type stop-basic</code></pre>
+        </div>
+    </section>
+
+    <script>
+        function copyToClipboard(id) {
+            var textToCopy = document.querySelector(id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+    </script>
+
+</body>
+</html>
