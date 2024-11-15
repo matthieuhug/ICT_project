@@ -49,6 +49,30 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(process.cwd(), 'forum.html')); // Ensure 'forum.html' exists
 });
 
+app.get('/index.html', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'index.html'));
+});
+
+app.get('/5g.html', (req, res) => {
+  res.sendFile(path.join(process.cwd(), '5g.html'));
+});
+
+app.get('/sdr.html', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'sdr.html'));
+});
+
+app.get('/project_examples.html', (req, res) => {
+  res.sendFile(path.join(process.cwd(), 'project_examples.html'));
+});
+
+app.get('/guided_implementation.html', (req, res) => {
+  res.sendFile(path.join(process.cwd(),'guided_implementation.html'));
+});
+
+app.get('/qa_troubleshooting.html', (req, res) => {
+  res.sendFile(path.join(process.cwd(),'qa_troubleshooting.html'));
+});
+
 // Route to get all posts from the database
 app.get('/posts', (req, res) => {
   const db = readDB();
