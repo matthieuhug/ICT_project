@@ -33,6 +33,9 @@ const writeDB = (data) => {
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
+// Serve static files from the "public" directory (including images, CSS, JS, etc.)
+app.use(express.static(path.join(process.cwd(), 'public')));
+
 // Ensure db.json exists, if not, create it with default data
 if (!fs.existsSync(dbFilePath)) {
   console.log('db.json not found. Creating it with default data...');
@@ -40,9 +43,6 @@ if (!fs.existsSync(dbFilePath)) {
 } else {
   console.log('db.json exists.');
 }
-
-// Serve static files from the "public" directory
-app.use(express.static(path.join(process.cwd(), 'public')));
 
 // Default route to serve the forum HTML
 app.get('/', (req, res) => {

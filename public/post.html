@@ -91,9 +91,59 @@
     .form-section button:hover {
       background-color: #005f86;
     }
+
+    /* Header Styles */
+    header {
+      background-color: #0D4B8F; /* Dark Blue */
+      padding: 10px 0;
+    }
+
+    #header-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #header-nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+    }
+
+    #header-nav li {
+      margin: 0 15px;
+    }
+
+    #header-nav a {
+      text-decoration: none;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    #header-nav a:hover {
+      color: #D9534F; /* Light Red on hover */
+    }
   </style>
 </head>
 <body>
+  <!-- Header Navigation -->
+  <header>
+    <nav id="header-nav">
+      <ul>
+        <li><a href="index.html">Home</a></li> 
+        <li><a href="5g.html">5G</a></li>
+        <li><a href="sdr.html">SDR</a></li>
+        <li><a href="project_examples.html">Project Examples</a></li>
+        <li><a href="guided_implementation.html">Guided Implementation</a></li>
+        <li><a href="qa_troubleshooting.html">Q&A / Troubleshooting</a></li>
+        <li><a href="http://localhost:3000">Forum</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <div class="container">
     <h1>Post Detail</h1>
 
