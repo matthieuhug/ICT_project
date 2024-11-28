@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A: SDR, OpenAirInterface, Open5GS, and Linux Ubuntu</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        header nav ul li {
+            margin: 0 15px;
+        }
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        section {
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.2em;
+            cursor: pointer;
+            padding: 10px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-align: left;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        .question:hover {
+            background: #0056b3;
+        }
+        .answer {
+            display: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const questions = document.querySelectorAll(".question");
+            questions.forEach((question) => {
+                question.addEventListener("click", () => {
+                    const answer = question.nextElementSibling;
+                    if (answer.style.display === "block") {
+                        answer.style.display = "none";
+                    } else {
+                        answer.style.display = "block";
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <nav id="header-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li> 
+            <li><a href="5g.html">5G</a></li>
+            <li><a href="sdr.html">SDR</a></li>
+            <li><a href="project_examples.html">Project Examples</a></li>
+            <li><a href="guided_implementation.html">Guided Implementation</a></li>
+            <li><a href="qa_troubleshooting.html">Q&A / Troubleshooting</a></li>
+            <li><a href="http://localhost:3000">Forum</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <h1>------------------------------------------------------------</h1>
+
+    <section>
+        <h2>Questions and Answers</h2>
+
+        <button class="question">What is Software Defined Radio (SDR)?</button>
+        <div class="answer">
+            Software Defined Radio (SDR) is a communication system where software replaces many traditionally hardware-based functions like modulation, demodulation, and filtering. This flexibility makes SDR ideal for dynamic environments like 4G and 5G networks.
+        </div>
+
+        <button class="question">How do I install OpenAirInterface?</button>
+        <div class="answer">
+            To install OpenAirInterface:
+            <ol>
+                <li>Clone the repository from GitHub: <code>git clone https://github.com/OPENAIRINTERFACE/openairinterface5g.git</code></li>
+                <li>Follow the build instructions provided in the repository's README file.</li>
+                <li>Ensure dependencies like GCC, GIT, and CMake are installed.</li>
+                <li>Use a supported version of Ubuntu (e.g., 20.04).</li>
+            </ol>
+        </div>
+
+        <button class="question">What is Open5GS, and how does it work?</button>
+        <div class="answer">
+            Open5GS is a C-based implementation of 4G/5G core networks. It provides all core network components like MME, SGW, PGW, and UPF for 4G, and AMF, SMF, and NRF for 5G. It is used to set up private LTE/5G networks for testing or production.
+        </div>
+
+        <button class="question">How do I install Ubuntu Linux for 5G projects?</button>
+        <div class="answer">
+            To install Ubuntu Linux for 5G projects:
+            <ol>
+                <li>Download the Ubuntu ISO from the official website.</li>
+                <li>Create a bootable USB using tools like Rufus or Etcher.</li>
+                <li>Boot your system from the USB drive.</li>
+                <li>Follow the installation prompts, selecting the appropriate options for your project.</li>
+                <li>After installation, update the system with <code>sudo apt update && sudo apt upgrade</code>.</li>
+            </ol>
+        </div>
+
+        <button class="question">What are the hardware requirements for SDR?</button>
+        <div class="answer">
+            Hardware requirements for SDR include:
+            <ul>
+                <li>An SDR device like USRP, HackRF, or LimeSDR.</li>
+                <li>A computer with sufficient processing power (preferably multi-core CPU).</li>
+                <li>High-speed USB or Ethernet connection to interface with the SDR device.</li>
+                <li>RAM (at least 8GB recommended).</li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Q&A Page for 5G and SDR Projects. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

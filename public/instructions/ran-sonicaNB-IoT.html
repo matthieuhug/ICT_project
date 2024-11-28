@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonica: Software-defined Open NB-IoT Research Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h2 {
+            color: #333;
+        }
+        section {
+            margin-bottom: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        button.copy-btn {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button.copy-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+    <script>
+        function copyToClipboard(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Copied to clipboard!");
+            }).catch((err) => {
+                console.error("Failed to copy: ", err);
+            });
+        }
+    </script>
+</head>
+<body>
+
+<main>
+    <section>
+        <h2>Introduction</h2>
+        <p>
+            <strong>Notice:</strong> This is an archive repo with a basic feature set. To access the latest release with 
+            the most recent updates and full functionality, please visit here.
+        </p>
+        <p>
+            Sonica provides an open-source NB-IoT testbed that can communicate with commodity off-the-shelf (COTS) devices. 
+            It implements the NB-IoT version of eNodeB and an EPC with Cellular Internet-of-Things (CIoT) extensions. Thus, 
+            it provides a platform for quick prototyping and/or verification on various layers of the NB-IoT network.
+        </p>
+    </section>
+
+    <section>
+        <h2>Sonica Components</h2>
+        <p>
+            Sonica runs on a Linux environment. To set up an NB-IoT network that can communicate with COTS hardware, SDR RF 
+            hardware is necessary. The currently tested hardware includes USRP B210 and X300.
+        </p>
+        <h3>System Setup</h3>
+        <p>
+            Before building, you need to install dependencies packages. For example, on Ubuntu, use the following command:
+        </p>
+        <pre id="dependencies">
+$ sudo apt-get install build-essential cmake libfftw3-dev \
+   libmbedtls-dev libboost-program-options-dev libconfig++-dev \
+   libsctp-dev
+        </pre>
+        <button class="copy-btn" onclick="copyToClipboard('dependencies')">Copy Command</button>
+
+        <p>
+            Additionally, UHD (for communication with USRP) and ZeroMQ (for RF emulation) are required.
+        </p>
+        <p>
+            Sonica's build system is based on Meson. To build, execute the following commands:
+        </p>
+        <pre id="build-commands">
+[sonica]$ meson builddir
+[sonica]$ cd builddir
+[sonica/builddir]$ meson compile
+        </pre>
+        <button class="copy-btn" onclick="copyToClipboard('build-commands')">Copy Commands</button>
+
+        <p>The two binary programs are located within the 'builddir' directory:</p>
+        <ul>
+            <li><strong>eNodeB:</strong> <code>sonica_enb/sonica_enb</code></li>
+            <li><strong>EPC:</strong> <code>third_party/srsepc_ciot/src/srsepc_ciot</code></li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <p style="text-align: center;">&copy; 2024 Sonica Platform Documentation. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

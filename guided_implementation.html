@@ -98,10 +98,79 @@
             background-position: center;
             margin-bottom: 20px;
         }
+
+        /* Help button and video styles */
+        .help-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .help-button:hover {
+            background-color: #0056b3;
+        }
+
+        .video-container {
+            display: none; /* Initially hidden */
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            max-width: 866px;
+            height: 487px;
+        }
+
+        /* Hover button styles */
+        .hover-button-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hover-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .hover-button:hover {
+            background-color: #0056b3; /* Color on hover */
+        }
+
+        /* Hover image styles */
+        .hover-image {
+            display: none;
+            position: absolute;
+            top: 120%; /* Position below the button */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px; /* Adjust the width */
+            height: auto;
+            z-index: 10;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff; /* Image background */
+        }
+
+        /* Show the image when hovering over the container */
+        .hover-button-container:hover .hover-image {
+            display: block;
+        }
     </style>
 </head>
 <body>
-    <div class="banner"></div> <!-- Banner Image -->
 <!-- Header / Navigation -->
 <header>
     <nav id="header-nav">
@@ -120,6 +189,25 @@
 <main>
     <section>
         <h2>Configure your 5G architecture</h2>
+        <button class="help-button" id="help-button">Presentation video</button>
+        <div class="video-container" id="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/OfDs5V5nXTg" 
+                title="Guided implementation - Help" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Hover Button with Image Display on Hover -->
+        <div class="hover-button-container">
+            <!-- Unique ID for the button -->
+            <button class="hover-button" id="hover-help-button">Possible architectures</button>
+            <!-- Image that appears on hover -->
+            <img src="https://i.ibb.co/7z7pJt0/Flow-Chart-Whiteboard-in-Red-Blue-Basic-Style.png" alt="Help Image" class="hover-image">
+        </div>
         <p>Choose the appropriate options to configure your 5G network based on the components you are using. You can configure the UE, SDR, RAN, Core, and OS according to your preferences.</p>
         <div id="custom-configurator">
             <!-- UE Configuration -->
@@ -229,9 +317,21 @@
 </div>
 
     </section>
+    
 </main>
 
 <script>
+// Toggle Help Video
+    const helpButton = document.getElementById('help-button');
+    const videoContainer = document.getElementById('video-container');
+
+    helpButton.addEventListener('click', () => {
+        if (videoContainer.style.display === 'none' || videoContainer.style.display === '') {
+            videoContainer.style.display = 'block'; // Show video
+        } else {
+            videoContainer.style.display = 'none'; // Hide video
+        }
+    });
 window.onload = function () {
     // Call handleSelectionChange on page load to set default states
     handleSelectionChange();
@@ -281,11 +381,11 @@ function handleSelectionChange() {
 
 function updateTabContent(ue, sdr, ran, core, os) {
     // Assign the URL to each tab's iframe based on the dropdown selection
-    let ueInstructionURL = "default-ue.html";
-    let sdrInstructionURL = "default-sdr.html";
-    let ranInstructionURL = "default-ran.html";
-    let coreInstructionURL = "default-core.html";
-    let osInstructionURL = "default-os.html";
+    let ueInstructionURL = "/instructions/default-ue.html";
+    let sdrInstructionURL = "/instructions/default-sdr.html";
+    let ranInstructionURL = "/instructions/default-ran.html";
+    let coreInstructionURL = "/instructions/default-core.html";
+    let osInstructionURL = "/instructions/default-os.html";
 
     // Set the URL for each tab based on the selection
     if (ue) {

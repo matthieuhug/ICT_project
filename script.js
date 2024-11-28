@@ -2,6 +2,8 @@
 document.getElementById('create-topic-form').addEventListener('submit', async function(event) {
     event.preventDefault();
 
+    // Capture form data (name, title, content)
+    const name = document.getElementById('topic-name').value;
     const title = document.getElementById('topic-title').value;
     const content = document.getElementById('topic-content').value;
 
@@ -11,7 +13,7 @@ document.getElementById('create-topic-form').addEventListener('submit', async fu
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ title, content })
+        body: JSON.stringify({ title, content, name })  // Include name in the body
     });
 
     if (response.ok) {
@@ -27,7 +29,7 @@ function displayTopic(topic) {
     topicElement.classList.add('forum-topic');
     topicElement.innerHTML = `
         <a>Topic: ${topic.title}</a>
-        <div class="forum-info">Posted by You</div>
+        <div class="forum-info">Posted by ${topic.name}</div>  <!-- Show the name -->
         <div class="topic-content">${topic.content}</div>
     `;
     
@@ -47,7 +49,7 @@ async function loadTopics() {
 // Load topics when the page loads
 loadTopics();
 
-
+// Dynamically load the header (optional)
 window.addEventListener('DOMContentLoaded', (event) => {
     fetch('header.html')
         .then(response => response.text())
@@ -59,6 +61,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         });
 });
 
+// Dynamic display of smartphone image (optional)
 document.addEventListener("DOMContentLoaded", function () {     
     const ueSelect = document.querySelector('select'); // Sélectionner le premier dropdown (UE)     
     const ueImageContainer = document.querySelector('.ue-image'); // Le conteneur de l'image du smartphone     
@@ -74,6 +77,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }     
     }); 
 });
-
-
-
