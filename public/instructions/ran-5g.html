@@ -72,23 +72,38 @@
             <p>Then, change the directory to the cloned repo and checkout the correct branch:</p>
             <div class="code-block">
                 <button onclick="copyToClipboard('#code2')">Copy</button>
-                <pre id="code2"><code>cd ~/openairinterface5g</code></pre>
-                <pre id="code2"><code>git checkout develop</code></pre>
+                <pre id="code2">
+                    <code>
+            cd ~/openairinterface5g
+            git checkout develop
+                    </code>
+                </pre>
             </div>
+            
             <p>After this, build the dependencies for the gNodeB:</p>
             <div class="code-block">
                 <button onclick="copyToClipboard('#code3')">Copy</button>
-                <pre id="code3"><code>cd cmake_targets</code></pre>
-                <pre id="code3"><code>sudo ./build_oai -I</code></pre>
+                <pre id="code3">
+                    <code>
+            cd cmake_targets
+            sudo ./build_oai -I
+                    </code>
+                </pre>
             </div>
+            
             <p>If the dependencies are successfully installed, you can proceed to build the gNodeB:</p>
             <div class="code-block">
                 <button onclick="copyToClipboard('#code4')">Copy</button>
-                <pre id="code4"><code>cd ~/openairinterface5g</code></pre>
-                <pre id="code4"><code>source oaienv</code></pre>
-                <pre id="code4"><code>cd cmake_targets</code></pre>
-                <pre id="code4"><code>./build_oai -w USRP --ninja --gNB -C</code></pre>
+                <pre id="code4">
+                    <code>
+            cd ~/openairinterface5g
+            source oaienv
+            cd cmake_targets
+            ./build_oai -w USRP --ninja --gNB -C
+                    </code>
+                </pre>
             </div>
+            
         </div>
     </section>
 
@@ -100,33 +115,39 @@
         <p>Modify the following parameters in the configuration file to match the Core Network settings:</p>
         <div class="code-block">
             <button onclick="copyToClipboard('#code5')">Copy</button>
-            <pre id="code5"><code>Active_gNBs = ( "gNB-OAI" );</code></pre>
-            <pre id="code5"><code>Asn1_verbosity = "none";</code></pre>
-            <pre id="code5"><code>gNBs = (</code></pre>
-            <pre id="code5"><code>{</code></pre>
-            <pre id="code5"><code>gNB_ID = 0xe00;</code></pre>
-            <pre id="code5"><code>gNB_name = "gNB-OAI";</code></pre>
-            <pre id="code5"><code>tracking_area_code = 1;</code></pre>
-            <pre id="code5"><code>plmn_list = ({</code></pre>
-            <pre id="code5"><code>mcc = 001;</code></pre>
-            <pre id="code5"><code>mnc = 01;</code></pre>
-            <pre id="code5"><code>mnc_length = 2;</code></pre>
-            <pre id="code5"><code>snssaiList = (</code></pre>
-            <pre id="code5"><code>{</code></pre>
-            <pre id="code5"><code>sst = 1;</code></pre>
-            <pre id="code5"><code>sd = 0x010203;</code></pre>
-            <pre id="code5"><code>},</code></pre>
-            <pre id="code5"><code>{</code></pre>
-            <pre id="code5"><code>sst = 1;</code></pre>
-            <pre id="code5"><code>sd = 0x010203;</code></pre>
-            <pre id="code5"><code>},</code></pre>
-            <pre id="code5"><code>{</code></pre>
-            <pre id="code5"><code>sst = 1;</code></pre>
-            <pre id="code5"><code>sd = 0xffffff;</code></pre>
-            <pre id="code5"><code>}</code></pre>
-            <pre id="code5"><code>);</code></pre>
-            <pre id="code5"><code>});</code></pre>
+            <pre id="code5">
+                <code>
+        Active_gNBs = ( "gNB-OAI" );
+        Asn1_verbosity = "none";
+        gNBs = (
+        {
+            gNB_ID = 0xe00;
+            gNB_name = "gNB-OAI";
+            tracking_area_code = 1;
+            plmn_list = ({
+                mcc = 001;
+                mnc = 01;
+                mnc_length = 2;
+                snssaiList = (
+                {
+                    sst = 1;
+                    sd = 0x010203;
+                },
+                {
+                    sst = 1;
+                    sd = 0x010203;
+                },
+                {
+                    sst = 1;
+                    sd = 0xffffff;
+                }
+                );
+            });
+        });
+                </code>
+            </pre>
         </div>
+        
         <p>These settings should be aligned with the ones in the Core Network configuration for the gNodeB to connect correctly.</p>
     </section>
 

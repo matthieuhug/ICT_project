@@ -94,10 +94,10 @@
         <p>Sonica's build system is based on Meson. To build the system, execute the following commands:</p>
         <div class="code-block">
             <button onclick="copyToClipboard('#code2')">Copy</button>
-            <pre id="code2"><code>[sonica]$ meson builddir</code></pre>
-            <pre id="code2"><code>[sonica]$ cd builddir</code></pre>
-            <pre id="code2"><code>[sonica/builddir]$ meson compile</code></pre>
+            <pre id="code2"><code>[sonica]$ meson builddir; cd builddir; meson compile</code></pre>
         </div>
+        
+        
 
         <p>Once built, the two binary programs will be located in the <code>builddir</code> directory:</p>
         <ul>

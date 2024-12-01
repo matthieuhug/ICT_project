@@ -80,15 +80,20 @@
         <p>Next, clone the SoapySDR repository and build it:</p>
         <div class="code-block">
             <button onclick="copyToClipboard('#code2')">Copy</button>
-            <pre id="code2"><code>git clone https://github.com/pothosware/SoapySDR.git</code></pre>
-            <pre id="code2"><code>cd SoapySDR</code></pre>
-            <pre id="code2"><code>git pull origin master</code></pre>
-            <pre id="code2"><code>mkdir build && cd build</code></pre>
-            <pre id="code2"><code>cmake ..</code></pre>
-            <pre id="code2"><code>make -j4</code></pre>
-            <pre id="code2"><code>sudo make install</code></pre>
-            <pre id="code2"><code>sudo ldconfig</code></pre>
+            <pre id="code2">
+                <code>
+        git clone https://github.com/pothosware/SoapySDR.git
+        cd SoapySDR
+        git pull origin master
+        mkdir build && cd build
+        cmake ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+                </code>
+            </pre>
         </div>
+        
     </section>
 
     <section>
@@ -96,18 +101,23 @@
         <p>Now, clone the LimeSDR repository and build it:</p>
         <div class="code-block">
             <button onclick="copyToClipboard('#code3')">Copy</button>
-            <pre id="code3"><code>git clone https://github.com/myriadrf/LimeSuite.git</code></pre>
-            <pre id="code3"><code>cd LimeSuite</code></pre>
-            <pre id="code3"><code>mkdir build && cd build</code></pre>
-            <pre id="code3"><code>cmake ..</code></pre>
-            <pre id="code3"><code>make -j4</code></pre>
-            <pre id="code3"><code>sudo make install</code></pre>
-            <pre id="code3"><code>sudo ldconfig</code></pre>
-            <pre id="code3"><code>cd ../udev-rules/</code></pre>
-            <pre id="code3"><code>sudo ./install.sh</code></pre>
-            <pre id="code3"><code># Download board firmware</code></pre>
-            <pre id="code3"><code>sudo LimeUtil --update</code></pre>
+            <pre id="code3">
+                <code>
+        git clone https://github.com/myriadrf/LimeSuite.git
+        cd LimeSuite
+        mkdir build && cd build
+        cmake ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cd ../udev-rules/
+        sudo ./install.sh
+        # Download board firmware
+        sudo LimeUtil --update
+                </code>
+            </pre>
         </div>
+        
     </section>
 
     <section>

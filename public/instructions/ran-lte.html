@@ -119,13 +119,18 @@
         <p>Then build the codebase:</p>
         <div class="code-block">
             <button onclick="copyToClipboard('#code3')">Copy</button>
-            <pre id="code3"><code>cd srsRAN_Project</code></pre>
-            <pre id="code3"><code>mkdir build</code></pre>
-            <pre id="code3"><code>cd build</code></pre>
-            <pre id="code3"><code>cmake ../</code></pre>
-            <pre id="code3"><code>make -j $(nproc)</code></pre>
-            <pre id="code3"><code>make test -j $(nproc)</code></pre>
+            <pre id="code3">
+                <code>
+        cd srsRAN_Project
+        mkdir build
+        cd build
+        cmake ../
+        make -j $(nproc)
+        make test -j $(nproc)
+                </code>
+            </pre>
         </div>
+        
         <p>You can now run the gNB from <code>srsRAN_Project/build/apps/gnb/</code>. If you wish to install the srsRAN Project gNB, you can use the following command:</p>
         <div class="code-block">
             <button onclick="copyToClipboard('#code4')">Copy</button>
@@ -140,10 +145,15 @@
         <p>Ubuntu users can download the srsRAN Project packages using the following commands:</p>
         <div class="code-block">
             <button onclick="copyToClipboard('#code5')">Copy</button>
-            <pre id="code5"><code>sudo add-apt-repository ppa:softwareradiosystems/srsran-project</code></pre>
-            <pre id="code5"><code>sudo apt-get update</code></pre>
-            <pre id="code5"><code>sudo apt-get install srsran-project -y</code></pre>
+            <pre id="code5">
+                <code>
+        sudo add-apt-repository ppa:softwareradiosystems/srsran-project
+        sudo apt-get update
+        sudo apt-get install srsran-project -y
+                </code>
+            </pre>
         </div>
+        
         <p>This will install the latest version of srsRAN Project from git.</p>
         <p>When installed from packages, srsRAN Project example configs can be found in <code>/usr/share/srsran</code>. For more information on these config files, see <a href="#">here</a>.</p>
         <p>The application can then be run using:</p>

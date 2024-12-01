@@ -80,16 +80,21 @@ python3-ruamel.yaml</code></pre>
 
         <div class="code-block">
             <button onclick="copyToClipboard('#code2')">Copy</button>
-            <pre id="code2"><code>git clone https://github.com/EttusResearch/uhd.git</code></pre>
-            <pre id="code2"><code>cd <uhd-repo-path>/host</code></pre>
-            <pre id="code2"><code>mkdir build</code></pre>
-            <pre id="code2"><code>cd build</code></pre>
-            <pre id="code2"><code>cmake ../</code></pre>
-            <pre id="code2"><code>make</code></pre>
-            <pre id="code2"><code>make test # This step is optional</code></pre>
-            <pre id="code2"><code>sudo make install</code></pre>
-            <pre id="code2"><code>sudo ldconfig</code></pre>
+            <pre id="code2">
+                <code>
+        git clone https://github.com/EttusResearch/uhd.git
+        cd <uhd-repo-path>/host
+        mkdir build
+        cd build
+        cmake ../
+        make
+        make test # This step is optional
+        sudo make install
+        sudo ldconfig
+                </code>
+            </pre>
         </div>
+        
     </section>
 
     <section>
@@ -98,34 +103,53 @@ python3-ruamel.yaml</code></pre>
 
         <div class="code-block">
             <button onclick="copyToClipboard('#code3')">Copy</button>
-            <pre id="code3"><code>ping 192.168.10.2</code></pre>
-            <pre id="code3"><code>uhd_usrp_probe --args addr=192.168.10.2</code></pre>
-            <pre id="code3"><code>uhd_image_loader --args="type=x300,addr=192.168.10.2,fpga=HG"</code></pre>
+            <pre id="code3">
+                <code>
+        ping 192.168.10.2
+        uhd_usrp_probe --args addr=192.168.10.2
+        uhd_image_loader --args="type=x300,addr=192.168.10.2,fpga=HG"
+                </code>
+            </pre>
         </div>
+        
 
         <p>Once the USRP X310 is set up, you can perform additional configuration, such as:</p>
 
         <div class="code-block">
             <button onclick="copyToClipboard('#code4')">Copy</button>
-            <pre id="code4"><code>uhd_cal_rx_iq_balance --args addr=192.168.40.3</code></pre>
-            <pre id="code4"><code>uhd_cal_tx_iq_balance --args addr=192.168.40.3</code></pre>
-            <pre id="code4"><code>uhd_cal_tx_dc_offset --args addr=192.168.40.3</code></pre>
+            <pre id="code4">
+                <code>
+        uhd_cal_rx_iq_balance --args addr=192.168.40.3
+        uhd_cal_tx_iq_balance --args addr=192.168.40.3
+        uhd_cal_tx_dc_offset --args addr=192.168.40.3
+                </code>
+            </pre>
         </div>
-
+        
         <div class="code-block">
             <button onclick="copyToClipboard('#code5')">Copy</button>
-            <pre id="code5"><code>sudo ethtool -G eno2 tx 4096 rx 4096</code></pre>
-            <pre id="code5"><code>sudo sysctl -w net.core.wmem_max=33554432</code></pre>
-            <pre id="code5"><code>sudo sysctl -w net.core.rmem_max=33554432</code></pre>
-            <pre id="code5"><code>sudo sysctl -w net.core.wmem_default=33554432</code></pre>
-            <pre id="code5"><code>sudo sysctl -w net.core.rmem_default=33554432</code></pre>
+            <pre id="code5">
+                <code>
+        sudo ethtool -G eno2 tx 4096 rx 4096
+        sudo sysctl -w net.core.wmem_max=33554432
+        sudo sysctl -w net.core.rmem_max=33554432
+        sudo sysctl -w net.core.wmem_default=33554432
+        sudo sysctl -w net.core.rmem_default=33554432
+                </code>
+            </pre>
         </div>
+        
 
         <div class="code-block">
             <button onclick="copyToClipboard('#code6')">Copy</button>
-            <pre id="code6"><code>sudo groupadd usrp</code></pre>
-            <pre id="code6"><code>sudo usermod -aG usrp $USER</code></pre>
+            <pre id="code6">
+                <code>
+        sudo groupadd usrp
+        sudo usermod -aG usrp $USER
+                </code>
+            </pre>
         </div>
+        
     </section>
 
     <section>
@@ -134,9 +158,14 @@ python3-ruamel.yaml</code></pre>
 
         <div class="code-block">
             <button onclick="copyToClipboard('#code7')">Copy</button>
-            <pre id="code7"><code>sudo uhd_usrp_probe</code></pre>
-            <pre id="code7"><code>sudo uhd_find_devices</code></pre>
+            <pre id="code7">
+                <code>
+        sudo uhd_usrp_probe
+        sudo uhd_find_devices
+                </code>
+            </pre>
         </div>
+        
     </section>
 
     <script>

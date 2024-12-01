@@ -3,128 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sonica: Software-defined Open NB-IoT Research Platform</title>
+    <title>Sonica Installation Guide</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             background-color: #f4f4f4;
         }
-        header {
-            background: #007bff;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-        }
-        main {
-            padding: 20px;
-            max-width: 800px;
-            margin: auto;
-        }
-        h2 {
+        h1, h2, h3 {
             color: #333;
         }
-        section {
-            margin-bottom: 20px;
-            background: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
         pre {
-            background: #f8f9fa;
-            border: 1px solid #ddd;
+            background-color: #333;
+            color: #fff;
             padding: 10px;
+            overflow-x: auto;
             border-radius: 5px;
             white-space: pre-wrap;
-            word-wrap: break-word;
         }
-        button.copy-btn {
-            background-color: #28a745;
-            color: #fff;
+        section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            font-family: monospace;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+        }
+        .code-block button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
             border: none;
-            padding: 8px 12px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
         }
-        button.copy-btn:hover {
-            background-color: #218838;
+        .code-block button:hover {
+            background-color: #45a049;
+        }
+        ul {
+            margin-top: 0;
+        }
+        li {
+            margin-bottom: 10px;
         }
     </style>
-    <script>
-        function copyToClipboard(elementId) {
-            const textToCopy = document.getElementById(elementId).innerText;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                alert("Copied to clipboard!");
-            }).catch((err) => {
-                console.error("Failed to copy: ", err);
-            });
-        }
-    </script>
 </head>
 <body>
 
-<main>
+    <h1>Sonica: Software-defined Open NB-IoT Research Platform</h1>
+
     <section>
         <h2>Introduction</h2>
-        <p>
-            <strong>Notice:</strong> This is an archive repo with a basic feature set. To access the latest release with 
-            the most recent updates and full functionality, please visit here.
-        </p>
-        <p>
-            Sonica provides an open-source NB-IoT testbed that can communicate with commodity off-the-shelf (COTS) devices. 
-            It implements the NB-IoT version of eNodeB and an EPC with Cellular Internet-of-Things (CIoT) extensions. Thus, 
-            it provides a platform for quick prototyping and/or verification on various layers of the NB-IoT network.
-        </p>
+        <p><strong>Notice:</strong> This is an archive repo that contains a basic feature set. To access the latest release with the most recent updates and full functionality, please visit <a href="#">here</a>.</p>
+        <p>Sonica provides an open-source NB-IoT testbed that can communicate with commodity off-the-shelf (COTS) devices. It implements the NB-IoT version of eNodeB and an EPC with Cellular Internet-of-Things (CIoT) extensions. This makes it an ideal platform for quick prototyping and/or verification across various layers of the NB-IoT network.</p>
     </section>
 
     <section>
         <h2>Sonica Components</h2>
-        <p>
-            Sonica runs on a Linux environment. To set up an NB-IoT network that can communicate with COTS hardware, SDR RF 
-            hardware is necessary. The currently tested hardware includes USRP B210 and X300.
-        </p>
-        <h3>System Setup</h3>
-        <p>
-            Before building, you need to install dependencies packages. For example, on Ubuntu, use the following command:
-        </p>
-        <pre id="dependencies">
-$ sudo apt-get install build-essential cmake libfftw3-dev \
-   libmbedtls-dev libboost-program-options-dev libconfig++-dev \
-   libsctp-dev
-        </pre>
-        <button class="copy-btn" onclick="copyToClipboard('dependencies')">Copy Command</button>
-
-        <p>
-            Additionally, UHD (for communication with USRP) and ZeroMQ (for RF emulation) are required.
-        </p>
-        <p>
-            Sonica's build system is based on Meson. To build, execute the following commands:
-        </p>
-        <pre id="build-commands">
-[sonica]$ meson builddir
-[sonica]$ cd builddir
-[sonica/builddir]$ meson compile
-        </pre>
-        <button class="copy-btn" onclick="copyToClipboard('build-commands')">Copy Commands</button>
-
-        <p>The two binary programs are located within the 'builddir' directory:</p>
+        <p>Sonica is designed to run in a Linux environment. To set up an NB-IoT network that can communicate with COTS hardware, SDR RF hardware is required. The currently tested hardware includes:</p>
         <ul>
-            <li><strong>eNodeB:</strong> <code>sonica_enb/sonica_enb</code></li>
-            <li><strong>EPC:</strong> <code>third_party/srsepc_ciot/src/srsepc_ciot</code></li>
+            <li>USRP B210</li>
+            <li>USRP X300</li>
+        </ul>
+        <p>Before building Sonica, you need to install the required dependencies. For example, on Ubuntu, run the following command:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code1')">Copy</button>
+            <pre id="code1"><code>$ sudo apt-get install build-essential cmake libfftw3-dev \
+   libmbedtls-dev libboost-program-options-dev libconfig++-dev \
+   libsctp-dev</code></pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>Build Setup</h2>
+        <p>Besides the dependencies, you also need to install the following packages:</p>
+        <ul>
+            <li><strong>UHD</strong>: For communication with USRP</li>
+            <li><strong>ZeroMQ</strong>: For RF emulation</li>
+        </ul>
+
+        <p>Sonica's build system is based on Meson. To build the system, execute the following commands:</p>
+        <div class="code-block">
+            <button onclick="copyToClipboard('#code2')">Copy</button>
+            <pre id="code2"><code>meson builddir
+                 cd builddir
+                 meson compile</code></pre>
+        </div>
+        
+        
+
+        <p>Once built, the two binary programs will be located in the <code>builddir</code> directory:</p>
+        <ul>
+            <li>eNodeB: <code>sonica_enb/sonica_enb</code></li>
+            <li>EPC: <code>third_party/srsepc_ciot/src/srsepc_ciot</code></li>
         </ul>
     </section>
-</main>
 
-<footer>
-    <p style="text-align: center;">&copy; 2024 Sonica Platform Documentation. All rights reserved.</p>
-</footer>
+    <script>
+        function copyToClipboard(id) {
+            var textToCopy = document.querySelector(id).innerText;
+            var textarea = document.createElement('textarea');
+            textarea.value = textToCopy;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("Copied to clipboard!");
+        }
+    </script>
 
 </body>
 </html>
