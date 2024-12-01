@@ -7,40 +7,40 @@
     <link rel="stylesheet" href="../style.css"> <!-- Correct path to the CSS file -->
     <style>
         /* Header Styles */
-        header {
-            background-color: #0D4B8F; /* Dark Blue */
-            padding: 10px 0;
-        }
-
-        #header-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
         #header-nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-        }
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #004080;
+    text-align: center;
+}
 
-        #header-nav li {
-            margin: 0 15px;
-        }
+#header-nav li {
+    display: inline;
+    margin: 0 15px;
+}
 
-        #header-nav a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
+#header-nav li a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 
-        #header-nav a:hover {
-            color: #D9534F; /* Light Red on hover */
-        }
-
+#header-nav li a:hover {
+    background-color: #002a5c;
+    border-radius: 5px;
+}
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #004080;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
         /* Existing Styles */
         body {
             font-family: Arial, sans-serif;
