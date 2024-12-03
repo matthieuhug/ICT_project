@@ -49,18 +49,16 @@ if (-not (Check-NodeVersion)) {
 Write-Host "Installing dependencies..."
 npm install --prefix (Split-Path -Path $AppPath)
 
-# Step 6: Start the Node.js application
-Write-Host "Starting the Node.js application..."
-Start-Process -NoNewWindow -FilePath "node" -ArgumentList $AppPath
-
-# Step 7: Launch web browser
+# Step 6: Launch the web browser
 Write-Host "Launching the web browser..."
 Start-Process "http://localhost:3000/index.html"
+
+# Step 7: Start the Node.js application in the foreground
+Write-Host "Starting the Node.js application in the foreground. Press Ctrl+C to stop the application."
+& node $AppPath
 
 # Clean up
 if (Test-Path $InstallerPath) {
     Write-Host "Cleaning up installation files..."
     Remove-Item -Force $InstallerPath
 }
-
-Write-Host "Node.js application started successfully! Press Ctrl+C in the node.js console to stop the application."
